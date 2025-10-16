@@ -1,0 +1,458 @@
+/* Estilização básica para o corpo e o container */
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #000000, #4a2d52);
+    background-attachment: fixed;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+
+
+
+.container {
+    display: flex;
+    width: 80%;
+    max-width: 1200px;
+    /* Remover 'align-items: flex-start' daqui é crucial para alinhar a foto */
+    gap: 50px;
+}
+
+/* --- Estilização da Foto e Moldura (180px) --- */
+.photo-section {
+    flex-shrink: 0;
+    /* NOVO: Alinha a foto/moldura individualmente ao centro vertical do container, junto aos banners */
+    align-self: center; 
+}
+
+/* O contêiner pai (relative) define a área para os elementos absolutos */
+/* O contêiner pai (relative) define a área para os elementos absolutos E para o LED (::before) */
+.frame-container {
+    position: relative;
+    width: 180px; /* Tamanho da área para a foto/moldura */
+    height: 180px; /* Tamanho da área */
+    /* Adiciona um z-index para garantir que a rotação e a moldura fiquem abaixo dos botões */
+    z-index: 10;
+}
+
+/* NOVO: Pseudo-elemento que cria o efeito de LED giratório */
+/* NOVO: Pseudo-elemento que cria o efeito de LED giratório */
+/* NOVO: Pseudo-elemento que cria o efeito de LED giratório quadrado */
+.frame-container::before {
+    content: ''; 
+    position: absolute;
+    
+    /* AJUSTE A POSIÇÃO E TAMANHO AQUI */
+    /* top, left, width e height devem cobrir a sua moldura.png */
+    top: -20px; 
+    left: -20px;
+    width: 220px; 
+    height: 220px; 
+    
+    /* Usa a borda para calcular o fundo, importante para o efeito de borda */
+    box-sizing: border-box; 
+    
+    /* Degradê de luz. O tamanho 400% 400% é a chave para o movimento completo da luz nos 4 lados */
+    background: linear-gradient(
+        90deg, 
+        #fa0101, 
+        #141da8, 
+        #ffffff, 
+        #570686, 
+        #fa0101, 
+        #141da8,  
+        #ffffff, 
+        #570686
+    );
+    background-size: 400% 400%; 
+    
+    /* ANIMAÇÃO: Aplica a nova animação que move o background */
+    animation: neon-glow-border 6s linear infinite; 
+    
+    /* CRIA A BORDA LED: Usa uma máscara para deixar o centro transparente */
+    /* O valor 90% (interno) e 100% (externo) define a espessura da borda. */
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: exclude;
+    -webkit-mask-clip: content-box, border-box;
+    mask-clip: content-box, border-box;
+    padding: px; /* **ESSA PROPRIEDADE CONTROLA A ESPESSURA DA BORDA LED!** */
+
+    z-index: 1; 
+    
+    filter: blur(30px); /* Aumentei um pouco o blur para um efeito neon mais forte */
+
+}
+
+/* FOTO DE PERFIL: Separada, mas posicionada no topo-esquerda do contêiner */
+.profile-photo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1; /* Camada de baixo */
+}
+
+/* MOLDURA: Separada, mas posicionada para sobrepor a foto. REVERTIDO para o posicionamento padrão! */
+/* MOLDURA: Garantir que ela esteja por cima do LED (z-index: 1) */
+.frame-image {
+    position: absolute;
+    top: -55px;;
+    left:-60px;
+    width:298px;
+    height:292px;
+    object-fit: contain;
+    z-index: 2; /* CAMADA DE CIMA, COBRE O LED */
+}
+
+/* --- Estilização dos Banners (Links/Botões) --- */
+.banner-section {
+    display: flex;
+    flex-direction: column; 
+    gap: 20px; /* Ajuste para reduzir o espaçamento */
+    flex-grow: 1; 
+    /* Removido padding-top para alinhar ao centro com a foto */
+    padding-top: 0; 
+}
+
+.banner-link {
+    position: relative;
+    display: block;
+    text-decoration: none;
+    transition: transform 0.2s ease-in-out;
+    /* NOVO: Define o tamanho máximo dos banners e centraliza */
+    max-width: 450px; /* Você pode ajustar este valor para o tamanho desejado (ex: 400px, 500px) */
+    width: 100%;
+    margin: 0 auto; /* Centraliza o banner/link dentro da banner-section */
+}
+
+.banner-link:hover {
+    transform: scale(1.03); /* Efeito de zoom mais notável */
+}
+
+.banner {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.banner-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    font-family: 'Press Start 2P', cursive;
+    /* AJUSTE: Reduzindo o tamanho da fonte para melhor visualização do pixel art */
+    font-size: 0.7em; 
+    line-height: 1;
+    
+    color: white;
+    font-weight: normal; /* Fontes pixeladas geralmente não precisam de bold */
+    letter-spacing: 0; /* Remove letter-spacing para a fonte pixelada */
+    white-space: nowrap;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    z-index: 3;
+}
+
+
+/* Ajustes para telas menores (Responsividade) */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+    
+    .banner-section {
+        width: 90%;
+        padding-top: 0;
+        align-items: center;
+    }
+    /* Centraliza os links dos banners em telas pequenas */
+    .banner-link {
+        margin: 0 auto;
+    }
+}
+
+/* ANIMAÇÃO LED QUADRADO GIRATÓRIO */
+/* ANIMAÇÃO LED QUADRADO GIRATÓRIO (SUAVE) */
+@keyframes neon-glow-border {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        /* Aumentamos a porcentagem final para garantir que o movimento se complete */
+        background-position: 400% 50%;
+    }
+}
+
+/* --- Estilização do Modal (Tela de Informações) --- */
+
+/* Fundo escuro que cobre toda a tela */
+.modal-overlay {
+    display: none; /* ESCONDE POR PADRÃO */
+    position: fixed;
+    z-index: 1000; /* Garante que fique acima de todo o resto */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.85); /* Fundo preto semi-transparente */
+    justify-content: center;
+    align-items: center;
+}
+
+/* A caixa principal que contém o conteúdo */
+/* A caixa principal que contém o conteúdo */
+.modal-content {
+    background-color: #4a2d52; 
+    padding: 40px;
+    margin: 15% auto; 
+    max-width: 600px;
+    width: 90%;
+    position: relative;
+    border: 5px solid #000; 
+    clip-path: polygon(
+        5% 0, 95% 0, 100% 5%, 100% 95%, 95% 100%, 5% 100%, 0 95%, 0 5%
+    );
+    font-family: Arial, sans-serif;
+    color: white;
+
+    /* --- NOVAS PROPRIEDADES PARA ROLAGEM --- */
+    max-height: 80vh; /* Define a altura máxima como 80% da altura da tela (viewport) */
+    overflow-y: auto; /* Adiciona a barra de rolagem vertical se o conteúdo exceder a altura */
+    /* ------------------------------------- */
+}
+
+/* Título e Corpo do Conteúdo */
+#modal-title {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.2em;
+    color: #ffd700; /* Ouro/Amarelo para destaque */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.content-box p {
+    font-size: 1em;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+
+/* Botão de fechar (X) */
+.close-button {
+    color: #fff;
+    font-size: 30px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #ff4500; /* Laranja/Vermelho ao passar o mouse */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* NOVO: Espaçamento para os itens da lista dentro do modal */
+.modal-content ul li {
+    margin-bottom: 15px; /* Adiciona 15 pixels de espaço após cada item da lista */
+    line-height: 1.4;    /* Melhora a leitura em caso de linhas longas */
+}
+
+/* Efeito específico para o banner laranja */
+.banner-link[href="#projetos"]:hover {
+    transform: scale(1.05);
+    filter: brightness(1.2);
+}
+
+/* Botões dentro do modal de projetos */
+#modal-body button {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.6em;
+    padding: 12px 25px;
+    margin: 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    background: linear-gradient(90deg, #e43f55, #000000);
+    transition: transform 0.2s, filter 0.2s;
+}
+
+#modal-body button:hover {
+    transform: scale(1.05);
+    filter: brightness(1.2);
+}
+
+.social-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.social-btn {
+    width: 200px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: white;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.social-btn:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+/* Cores específicas */
+.instagram {
+    background-color: #E1306C;
+}
+
+.linkedin {
+    background-color: #0077B5;
+}
+
+.facebook {
+    background-color: #4267B2;
+}
+
+/* Ícones */
+.icon {
+    width: 20px;
+    height: 20px;
+}
+
+#social-frame-container iframe {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #4c2c59; /* padrão roxo */
+    color: white;
+    border-radius: 8px;
+    padding: 20px;
+    width: 80%;
+    max-width: 900px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+    overflow-y: auto;
+    transition: background-color 0.3s ease;
+}
+
+/* Seu CSS (styles.css) */
+
+/* Cor padrão do seu banner roxo */
+.modal-content.cor-roxo {
+    /* Pode ser a cor que você já tem, mas com a nova classe */
+    background: linear-gradient(90deg, #803ee9, #602ed4);
+    /* Mantenha o estilo de borda, padding e sombra que você já tem */
+}
+
+/* Cor para o banner azul/ciano */
+.modal-content.cor-azul {
+    background: linear-gradient(90deg, #0044ff, #06b9e6);
+}
+
+/* Cor para o banner vermelho */
+.modal-content.cor-vermelho {
+   background: linear-gradient(90deg, #913a3a, #1f0505);
+}
+
+/* Cor para o banner laranja */
+.modal-content.cor-laranja {
+       background: linear-gradient(90deg, #ff8c00, #6d4009);
+
+}
+
+/* Cor para o banner verde */
+.modal-content.cor-verde {
+         background: linear-gradient(90deg, #2c4720, #72a85a);
+
+}
+
+/* ================================================= */
+/* NOVO: EFEITO COBRA GIRATÓRIA NA JANELA (VIEWPORT) */
+/* MAIS CORES RGB E BORDA MAIS GROSSA (10PX)   */
+/* ================================================= */
+
+/* 1. O ELEMENTO COBRA (::before) - Aplica-se ao BODY */
+body::before {
+    content: '';
+    position: fixed; 
+    top: -50%;
+    left: -50%;
+    width: 200vw; 
+    height: 200vh; 
+    
+    /* Degradê MAIS COLORIDO (RGB) que simula a "Cobra" girando */
+    background: conic-gradient(
+        transparent 0deg, 
+        transparent 30%, 
+        #ff0000 35%,    /* VERMELHO */
+        #00ff00 45%,    /* VERDE */
+        #0000ff 55%,    /* AZUL */
+        #ff00ff 65%,    /* MAGENTA */
+        transparent 70%, 
+        transparent 100%
+    );
+    
+    z-index: 1; 
+    animation: girar-viewport 8s linear infinite; /* Aumentei a velocidade para 8s */
+}
+
+/* 2. O ELEMENTO CORTADOR DE BORDA (::after) - Aplica-se ao BODY */
+body::after {
+    content: '';
+    position: fixed; 
+    
+    /* INSET: Mantenha o valor que você escolheu para a espessura da borda */
+    inset: 10px; 
+    
+    /* ---------------------------------------------------- */
+    /* NOVO: PROPRIEDADES PARA O CORTADOR USAR A IMAGEM DE FUNDO */
+    /* ---------------------------------------------------- */
+    background-image: url('imagem/fundoTela.webp'); /* 👈 MESMO CAMINHO DO BODY */
+    background-size: cover;          
+    background-repeat: no-repeat;    
+    background-color: #000000;      
+    background-attachment: fixed;    /* É CRUCIAL USAR FIXED AQUI TAMBÉM */
+    /* ---------------------------------------------------- */
+    
+    z-index: 2; 
+}
+
+/* 3. A ANIMAÇÃO DE ROTAÇÃO (Mantida) */
+@keyframes girar-viewport {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 4. GARANTE QUE SEU CONTEÚDO FIQUE ACIMA DA ANIMAÇÃO (Mantido) */
+.container {
+    position: relative; 
+    z-index: 3; 
+}
