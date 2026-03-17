@@ -1,139 +1,73 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Meu Mundo</title>
-        
-        <link rel="icon" type="image/png" href="imagem/favicon.png.png"> 
-        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-        
-        <link rel="stylesheet" href="styles.css">
-    </head>
-    <body>
-        
-        
-        
-        <div class="container">
-            <div class="photo-section">
-                <div class="frame-container">
-                    
-                    <img src="imagem/moldura.png" alt="Moldura estilizada" class="frame-image">
-                    
-                    <img src="imagem/foto de perfil.jpg" alt="Foto de Perfil" class="profile-photo">
-                </div>
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luis Gustavo - Currículo</title>
+
+<link rel="icon" type="image/png" href="imagem/favicon.png.png">
+<link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+    <canvas id="bg"></canvas>
+    <div class="background">
+        <div class="blob blob-1" id="blob1"></div>
+        <div class="blob blob-2" id="blob2"></div>
+        <div class="blob blob-3"></div>
+        <div class="grid-pattern"></div>
+        <div class="particles" id="particles"></div>
+    </div>
+
+    <div class="container" id="container">
+        <div class="photo-section">
+            <div class="frame-container">
+                <img src="imagem/moldura.png" alt="Moldura estilizada" class="frame-image">
+                <img src="imagem/foto de perfil.jpg" alt="Foto de Perfil" class="profile-photo">
             </div>
-            <div class="banner-section">
-                
-                <a href="#dados-pessoais" class="banner-link" data-color="roxo"
-                onclick="openModal(this, 'DADOS PESSOAIS', '<p>Nome: Luis Gustavo Dos Santos Brandao</p><p>E-mail: Luisgubrandao@gmail.com</p><p>Cell: (18) 997588429</p><p>Naturalidade: Bilac-Sp</p><p>Data de nascimento: 27/12/2003</p><p>Endereço: Rua Manuel Balthazar sobrinho, 48</p><p>Cidade: Araçatuba</p><p>Cep:16013-190</p><p>CNH: A/B</p>')">
-                <img src="imagem/baner roxo.png" alt="Banner Dados Pessoais" class="banner">
+        </div>
+
+        <div class="banner-section" >
+            <a href="#dados-pessoais" class="banner-link" data-color="roxo" 
+               onclick="openModal(this, 'DADOS PESSOAIS', '<p><strong>Nome:</strong> Luis Gustavo Dos Santos Brandao</p><p><strong>E-mail:</strong> Luisgubrandao@gmail.com</p><p><strong>Celular:</strong> (18) 997588429</p><p><strong>Naturalidade:</strong> Bilac-SP</p><p><strong>Data de nascimento:</strong> 27/12/2003</p><p><strong>Endereço:</strong> Rua Manuel Balthazar sobrinho, 48</p><p><strong>Cidade:</strong> Araçatuba</p><p><strong>CEP:</strong> 16013-190</p><p><strong>CNH:</strong> A/B</p>')">
                 <span class="banner-text">DADOS PESSOAIS</span>
             </a>
-            
+
             <a href="#formacao" class="banner-link" data-color="azul"
-            onclick="openModal(this, 'FORMAÇÃO', 
-    '<ul>' +
-        '<li><strong>ENSINO MÉDIO COMPLETO</strong> - ZETA OBJETIVO EM BIRIGUI</li>' +
-        '<li><strong>CURSO DE ASSISTENTE DE LOGÍSTICA COMPLETO</strong> - PORTAL IDEA</li>' +
-        '<li><strong>CURSO DE INFORMÁTICA</strong> (SOBRE O PACOTE OFFICE) NA VIACERTA DE BURITAMA</li>' +
-        '<li><strong>CURSANDO ANÁLISE E DESENVOLVIMENTO DE SISTEMA</strong> (TDS) NO UNISALESIANO DE ARAÇATUBA - INÍCIO 08/22 - PREVISÃO 08/26</li>' +
-        '</ul>'
-        )">
-    <img src="imagem/baner azul.png" alt="Banner Formação" class="banner">
-    <span class="banner-text">FORMAÇÃO</span>
-</a>
+               onclick="openModal(this, 'FORMAÇÃO', '<ul><li><strong>ENSINO MÉDIO COMPLETO</strong> - ZETA OBJETIVO EM BIRIGUI</li><li><strong>CURSO DE ASSISTENTE DE LOGÍSTICA COMPLETO</strong> - PORTAL IDEA</li><li><strong>CURSO DE INFORMÁTICA</strong> (SOBRE O PACOTE OFFICE) NA VIACERTA DE BURITAMA</li><li><strong>CURSANDO ANÁLISE E DESENVOLVIMENTO DE SISTEMA</strong> (TDS) NO UNISALESIANO DE ARAÇATUBA - INÍCIO 08/22 - PREVISÃO 08/26</li></ul>')">
+                <span class="banner-text">FORMAÇÃO</span>
+            </a>
 
-<a href="#experiencia" class="banner-link" data-color="vermelho"
-onclick="openModal(this, 'EXPERIÊNCIA PROFISSIONAL', 
-    '<h3>Empresa: Alta Noroeste Araçatuba</h3>' +
-    '<p><strong>Cidade:</strong> Araçatuba – SP</p>' +
-    '<p><strong>Período:</strong> Desde de Julho de 2025</p>' +
-    '<p><strong>Função:</strong> Assistente Administrativo</p>' +
-    '<p><strong>Descrição do Cargo:</strong> Responsável por dar suporte às atividades administrativas, garantindo a organização e atualização de documentos. Atua no controle e acompanhamento de processos internos, auxiliando nas rotinas do setor, atividades administrativas no setor logística e expedição, atuando com roteirização de produtos, ferramentas e matéria prima, atendendo as demandas das obras da empresa em todo País.</p>' +
-    '<hr>' + 
-    
-    '<h3>Empresa: P.S Bike Araçatuba</h3>' +
-    '<p><strong>Cidade:</strong> Araçatuba – SP</p>' +
-    '<p><strong>Período:</strong> Desde de Janeiro de 2025</p>' +
-    '<p><strong>Função:</strong> Encarregado Administrativo e mecânico</p>' +
-    '<p><strong>Descrição do Cargo:</strong> Prestar suporte administrativo geral, incluindo gerenciamento de correspondências, agenda e preparação de relatórios. Manter e atualizar registros e arquivos, garantindo a precisão e confidencialidade dos dados. Gerenciar o estoque de suprimentos de escritório e fazer pedidos conforme necessário. Empresa familiar.</p>' +
-    '<hr>' +
-    
-    '<h3>Empresa: Restaurante DR Buritama</h3>' +
-    '<p><strong>Cidade:</strong> Buritama – SP</p>' +
-    '<p><strong>Período:</strong> Freelancer</p>' +
-    '<p><strong>Função:</strong> BarMan</p>' +
-    '<p><strong>Descrição do Cargo:</strong> Responsável por preparar e servir drinks, coquetéis e chope aos clientes, garantindo um atendimento de qualidade. Atuação na organização do ambiente de trabalho, zelando pela ordem e limpeza do bar. Realizava também a coleta, lavagem e higienização de bandejas, copos e demais utensílios utilizados no atendimento, assegurando a manutenção dos padrões de higiene e eficiência no serviço.</p>' +
-    '<hr>' +
-    
-    '<h3>Empresa: Conserta Bike Araçatuba</h3>' +
-    '<p><strong>Cidade:</strong> Araçatuba – SP</p>' +
-    '<p><strong>Período:</strong> Janeiro de 2023 à Janeiro de 2025</p>' +
-    '<p><strong>Função:</strong> Encarregado Administrativo e mecânico</p>' +
-    '<hr>' +
-    
-    '<h3>Empresa: Mundo Móveis</h3>' +
-    '<p><strong>Cidade:</strong> Birigui – SP</p>' +
-    '<p><strong>Período:</strong> Outubro de 2022 à Novembro de 2022 (temporário)</p>' +
-    '<p><strong>Função:</strong> Auxiliar de Produção</p>' +
-    '<p><strong>Descrição do Cargo:</strong> Montagens de sofás, camas e poltronas; cortador de tecidos e madeiras para montagens dos móveis; empacotar os móveis, como sofás, camas e poltronas e demais tarefas do cargo.</p>' +
-    '<hr>' +
-    
-    '<h3>Empresa: Bento’s Butiquim - Birigui</h3>' +
-    '<p><strong>Cidade:</strong> Birigui – SP</p>' +
-    '<p><strong>Período:</strong> Junho de 2022 à Outubro de 2022</p>' +
-    '<p><strong>Função:</strong> Auxiliar Geral</p>' +
-    '<p><strong>Descrição do Cargo:</strong> Preparação de alimentos, limpeza e conservação das dependências do restaurante, lanchonete e dos equipamentos existentes. Auxiliar no preparo das refeições, sobremesas, lanches, etc. Manter a ordem e a limpeza da cozinha, procedendo a coleta e a lavagem das bandejas, talheres entre outras funções.</p>' +
-    '<hr>' +
-    
-    '<h3>Empresa: Mobi Logística LTDA</h3>' +
-    '<p><strong>Cidade:</strong> Araçatuba – SP</p>' +
-    '<p><strong>Período:</strong> Abril de 2021 à Junho de 2022</p>' +
-    '<p><strong>Função:</strong> Motofretista Esporádico</p>' +
-    '<p><strong>Descrição do Cargo:</strong> Motofretista entregador de pequenas encomendas em general, na filial da empresa Mobi de Araçatuba, atuando nas cidades vizinhas, num raio de até 100 km.</p>' 
-    
-    )">
-    <img src="imagem/baner vermelho.png" alt="Banner Experiência Profissional" class="banner">
-    <span class="banner-text">EXPERIENCIA PROFISSIONAL</span>
-</a>
+            <a href="#experiencia" class="banner-link" data-color="vermelho"
+               onclick="openModal(this, 'EXPERIÊNCIA PROFISSIONAL', '<h3>Empresa: Alta Noroeste Araçatuba</h3> <p><strong>Cidade:</strong> Araçatuba – SP</p><p><strong>Período:</strong>16/06/2025 á 29/01/2026</p><p><strong>Função:</strong> Assistente Administrativo</p><p><strong>Descrição:</strong> Responsável por dar suporte às atividades administrativas, garantindo a organização e atualização de documentos. Atua no controle e acompanhamento de processos internos, auxiliando nas rotinas do setor, atividades administrativas no setor logística e expedição, atuando com roteirização de produtos, ferramentas e matéria prima, atendendo as demandas das obras da empresa em todo País.</p><hr><h3>Empresa: P.S Bike Araçatuba</h3><p><strong>Cidade:</strong> Araçatuba – SP</p><p><strong>Período:</strong> Desde Janeiro de 2025</p><p><strong>Função:</strong> Encarregado Administrativo e Mecânico</p><p><strong>Descrição:</strong> Prestar suporte administrativo geral, incluindo gerenciamento de correspondências, agenda e preparação de relatórios. Manter e atualizar registros e arquivos, garantindo a precisão e confidencialidade dos dados. Gerenciar o estoque de suprimentos de escritório e fazer pedidos conforme necessário. Empresa familiar.</p><hr><h3>Empresa: Restaurante DR Buritama</h3><p><strong>Cidade:</strong> Buritama – SP</p><p><strong>Período:</strong> Freelancer</p><p><strong>Função:</strong> BarMan</p><p><strong>Descrição:</strong> Responsável por preparar e servir drinks, coquetéis e chope aos clientes, garantindo um atendimento de qualidade. Atuação na organização do ambiente de trabalho, zelando pela ordem e limpeza do bar. Realizava também a coleta, lavagem e higienização de bandejas, copos e demais utensílios utilizados no atendimento, assegurando a manutenção dos padrões de higiene e eficiência no serviço.</p><hr><h3>Empresa: Conserta Bike Araçatuba</h3><p><strong>Cidade:</strong> Araçatuba – SP</p><p><strong>Período:</strong> Janeiro de 2023 à Janeiro de 2025</p><p><strong>Função:</strong> Encarregado Administrativo e Mecânico</p><hr><h3>Empresa: Mundo Móveis</h3><p><strong>Cidade:</strong> Birigui – SP</p><p><strong>Período:</strong> Outubro de 2022 à Novembro de 2022 (temporário)</p><p><strong>Função:</strong> Auxiliar de Produção</p><p><strong>Descrição:</strong> Montagens de sofás, camas e poltronas; cortador de tecidos e madeiras para montagens dos móveis; empacotar os móveis, como sofás, camas e poltronas e demais tarefas do cargo.</p><hr><h3>Empresa: Bento\'s Butiquim - Birigui</h3><p><strong>Cidade:</strong> Birigui – SP</p><p><strong>Período:</strong> Junho de 2022 à Outubro de 2022</p><p><strong>Função:</strong> Auxiliar Geral</p><p><strong>Descrição:</strong> Preparação de alimentos, limpeza e conservação das dependências do restaurante, lanchonete e dos equipamentos existentes. Auxiliar no preparo das refeições, sobremesas, lanches, etc. Manter a ordem e a limpeza da cozinha, procedendo a coleta e a lavagem das bandejas, talheres entre outras funções.</p><hr><h3>Empresa: Mobi Logística LTDA</h3><p><strong>Cidade:</strong> Araçatuba – SP</p><p><strong>Período:</strong> Abril de 2021 à Junho de 2022</p><p><strong>Função:</strong> Motofretista Esporádico</p><p><strong>Descrição:</strong> Motofretista entregador de pequenas encomendas em general, na filial da empresa Mobi de Araçatuba, atuando nas cidades vizinhas, num raio de até 100 km.</p>')">
+                <span class="banner-text">EXPERIÊNCIA PROFISSIONAL</span>
+            </a>
 
+            <a href="#projetos" class="banner-link" data-color="laranja"
+               onclick="openProjectsModal(this)">
+                <span class="banner-text">PROJETOS</span>
+            </a>
 
-<a href="#projetos" class="banner-link" data-color="laranja"
-onclick="openProjectsModal(this)">
-<img src="imagem/baner laranja.png" alt="Banner Projetos" class="banner">
-<span class="banner-text">PROJETOS</span>
-</a>
-
-<a href="#redes" class="banner-link" data-color="verde" onclick="openModalSocial(this)">
-    <img src="imagem/baner verde.png" alt="Banner Redes Sociais" class="banner">
-    <span class="banner-text">REDES SOCIAIS</span>
-</a>
-
-
-</div>
-</div>
-
-<div id="info-modal" class="modal-overlay">
-    <div class="modal-content">
-        <span class="close-button" onclick="closeModal()">&times;</span>
-        
-        <h2 id="modal-title"></h2>
-        
-        <div id="modal-body" class="content-box">
-            <p>Aqui você vai inserir as informações detalhadas da seção.</p>
-            <p>Nome: [Seu Nome Completo]</p>
-            <p>E-mail: [Seu E-mail]</p>
+            <a href="#redes" class="banner-link" data-color="verde"
+               onclick="openModalSocial(this)">
+                <span class="banner-text">REDES SOCIAIS</span>
+            </a>
         </div>
-        
     </div>
-</div>
 
+    <div id="info-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <h2 id="modal-title"></h2>
+            <div id="modal-body" class="content-box">
+                <p>Aqui você vai inserir as informações detalhadas da seção.</p>
+            </div>
+        </div>
+    </div>
 
-
-
-<script src="script.js"></script> 
-
+ <script src="script.js"></script>
 
 </body>
 </html>
