@@ -1,258 +1,364 @@
-/* Estilização básica para o corpo e o container */
-body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom, #000000, #4a2d52);
-    background-attachment: fixed;
-    display: flex;
-    align-items: center; 
-    justify-content: center; 
-    min-height: 100vh;
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #100220 40%, #22034b 50%, #100220 100%);
+    background-attachment: fixed;
+    overflow: hidden;
+    transition: background 0.5s ease;
     position: relative;
 }
 
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.7;
+    transition: transform 0.2s ease-out;
+    pointer-events: none;
+}
 
+.blob-1 {
+    width: 384px;
+    height: 384px;
+    background: rgba(59, 130, 246, 0.2);
+    top: 10%;
+    left: 10%;
+}
 
+.blob-2 {
+    width: 320px;
+    height: 320px;
+    background: rgba(139, 92, 246, 0.15);
+    bottom: 20%;
+    right: 10%;
+}
 
+.blob-3 {
+    position: absolute;
+    top: 80px;
+    right: 80px;
+    width: 288px;
+    height: 288px;
+    background: rgba(34, 211, 238, 0.1);
+    animation: pulse 4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.6; }
+}
+
+.grid-pattern {
+    position: absolute;
+    inset: 0;
+    background-image: 
+        linear-gradient(0deg, transparent 24%, rgba(255, 255, 255, 0.05) 25%, rgba(255, 255, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 0.05) 75%, rgba(255, 255, 255, 0.05) 76%, transparent 77%, transparent),
+        linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, 0.05) 25%, rgba(255, 255, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 0.05) 75%, rgba(255, 255, 255, 0.05) 76%, transparent 77%, transparent);
+    background-size: 50px 50px;
+    opacity: 0.05;
+    pointer-events: none;
+}
+
+.particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    animation: float linear infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) translateX(var(--tx));
+        opacity: 0;
+    }
+}
+
+/* No seu CSS existente, localize .container e substitua: */
 .container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+
     display: flex;
-    width: 80%;
-    max-width: 1200px;
-    /* Remover 'align-items: flex-start' daqui é crucial para alinhar a foto */
-    gap: 50px;
-}
+    align-items: center;
+    justify-content: center; /* CENTRALIZA */
 
-/* --- Estilização da Foto e Moldura (180px) --- */
+    gap: 100px; /* espaço entre foto e menu */
+
+    overflow: hidden;
+    padding: 20px;
+    z-index: 10;
+}
+.background {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 1;
+}
 .photo-section {
-    flex-shrink: 0;
-    /* NOVO: Alinha a foto/moldura individualmente ao centro vertical do container, junto aos banners */
-    align-self: center; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* O contêiner pai (relative) define a área para os elementos absolutos */
-/* O contêiner pai (relative) define a área para os elementos absolutos E para o LED (::before) */
 .frame-container {
     position: relative;
-    width: 180px; /* Tamanho da área para a foto/moldura */
-    height: 180px; /* Tamanho da área */
-    /* Adiciona um z-index para garantir que a rotação e a moldura fiquem abaixo dos botões */
+    width: 240px;
+    height: 240px;
+     border-radius: 20px;
     z-index: 10;
 }
 
-/* NOVO: Pseudo-elemento que cria o efeito de LED giratório */
-/* NOVO: Pseudo-elemento que cria o efeito de LED giratório */
-/* NOVO: Pseudo-elemento que cria o efeito de LED giratório quadrado */
+
+
 .frame-container::before {
-    content: ''; 
+    content: "";
     position: absolute;
-    
-    /* AJUSTE A POSIÇÃO E TAMANHO AQUI */
-    /* top, left, width e height devem cobrir a sua moldura.png */
-    top: -20px; 
-    left: -20px;
-    width: 220px; 
-    height: 220px; 
-    
-    /* Usa a borda para calcular o fundo, importante para o efeito de borda */
-    box-sizing: border-box; 
-    
-    /* Degradê de luz. O tamanho 400% 400% é a chave para o movimento completo da luz nos 4 lados */
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+
+    border-radius: -10px;
+
     background: linear-gradient(
-        90deg, 
-        #fa0101, 
-        #141da8, 
-        #ffffff, 
-        #570686, 
-        #fa0101, 
-        #141da8,  
-        #ffffff, 
-        #570686
+        45deg,
+        #ff0000,
+        #0831e6,
+        #7c07e9,
+        #09df37
     );
-    background-size: 400% 400%; 
-    
-    /* ANIMAÇÃO: Aplica a nova animação que move o background */
-    animation: neon-glow-border 6s linear infinite; 
-    
-    /* CRIA A BORDA LED: Usa uma máscara para deixar o centro transparente */
-    /* O valor 90% (interno) e 100% (externo) define a espessura da borda. */
-    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    mask-composite: exclude;
-    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite: exclude;
-    -webkit-mask-clip: content-box, border-box;
-    mask-clip: content-box, border-box;
-    padding: px; /* **ESSA PROPRIEDADE CONTROLA A ESPESSURA DA BORDA LED!** */
 
-    z-index: 1; 
-    
-    filter: blur(30px); /* Aumentei um pouco o blur para um efeito neon mais forte */
+    filter: blur(8px);
+    z-index: 0;
 
+    animation: ledRGB 2s linear infinite;
 }
 
-/* FOTO DE PERFIL: Separada, mas posicionada no topo-esquerda do contêiner */
+@keyframes ledRGB {
+    0% { filter: hue-rotate(0deg) blur(8px); }
+    100% { filter: hue-rotate(360deg) blur(8px); }
+}
+
+.profile-photo {
+    z-index: 1;
+}
+
+.frame-image {
+    z-index: 2;
+}
+
 .profile-photo {
     position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
-    height: 100%;
+    height:100%;
     object-fit: cover;
-    z-index: 1; /* Camada de baixo */
+    z-index: 1;
 }
 
-/* MOLDURA: Separada, mas posicionada para sobrepor a foto. REVERTIDO para o posicionamento padrão! */
-/* MOLDURA: Garantir que ela esteja por cima do LED (z-index: 1) */
 .frame-image {
     position: absolute;
-    top: -55px;;
-    left:-60px;
-    width:298px;
-    height:292px;
+    width: 160%;
+    height: 160%;
+    top: -30%;
+    left: -30%;
     object-fit: contain;
-    z-index: 2; /* CAMADA DE CIMA, COBRE O LED */
+    z-index: 2;
 }
 
-/* --- Estilização dos Banners (Links/Botões) --- */
 .banner-section {
     display: flex;
-    flex-direction: column; 
-    gap: 20px; /* Ajuste para reduzir o espaçamento */
-    flex-grow: 1; 
-    /* Removido padding-top para alinhar ao centro com a foto */
-    padding-top: 0; 
+    flex-direction: column;
+    gap: 20px;
+
+    width: 400px; /* trava largura pra não empurrar */
 }
 
 .banner-link {
     position: relative;
     display: block;
     text-decoration: none;
-    transition: transform 0.2s ease-in-out;
-    /* NOVO: Define o tamanho máximo dos banners e centraliza */
-    max-width: 450px; /* Você pode ajustar este valor para o tamanho desejado (ex: 400px, 500px) */
+    transition: all 0.3s ease;
+    max-width: 450px;
     width: 100%;
-    margin: 0 auto; /* Centraliza o banner/link dentro da banner-section */
+    margin: 0 auto;
+    border-radius: 16px;
+    overflow: hidden;
+
+    padding: 20px;
+    text-align: center;
+
+    background: linear-gradient(270deg, #3b82f6, #8148ec, #3c067a, #310669);
+    background-size: 600% 600%;
+    animation: gradientMove 8s ease infinite;
+
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
-.banner-link:hover {
-    transform: scale(1.03); /* Efeito de zoom mais notável */
-}
+@keyframes gradientMove {
 
-.banner {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
-.banner-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     
-    font-family: 'Press Start 2P', cursive;
-    /* AJUSTE: Reduzindo o tamanho da fonte para melhor visualização do pixel art */
-    font-size: 0.7em; 
-    line-height: 1;
-    
-    color: white;
-    font-weight: normal; /* Fontes pixeladas geralmente não precisam de bold */
-    letter-spacing: 0; /* Remove letter-spacing para a fonte pixelada */
-    white-space: nowrap;
-    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-    z-index: 3;
-}
-
-
-/* Ajustes para telas menores (Responsividade) */
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-        align-items: center;
-        gap: 30px;
-    }
-    
-    .banner-section {
-        width: 90%;
-        padding-top: 0;
-        align-items: center;
-    }
-    /* Centraliza os links dos banners em telas pequenas */
-    .banner-link {
-        margin: 0 auto;
-    }
-}
-
-/* ANIMAÇÃO LED QUADRADO GIRATÓRIO */
-/* ANIMAÇÃO LED QUADRADO GIRATÓRIO (SUAVE) */
-@keyframes neon-glow-border {
     0% {
         background-position: 0% 50%;
     }
-    100% {
-        /* Aumentamos a porcentagem final para garantir que o movimento se complete */
-        background-position: 400% 50%;
+    50% {
+        background-position: 100% 50%;
     }
+    100% {
+        background-position: 0% 50%;
+    }
+    
 }
 
-/* --- Estilização do Modal (Tela de Informações) --- */
+.banner-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(90, 14, 190, 0.6);
+    border-color: rgba(233, 215, 215, 0.3);
+}
 
-/* Fundo escuro que cobre toda a tela */
+.banner {
+    display: none;
+}
+
+.banner-text {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    font-size: 1em;
+    font-weight: 600;
+    color: #ececec;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    z-index: 3;
+}
+
 .modal-overlay {
-    display: none; /* ESCONDE POR PADRÃO */
+    display: none;
     position: fixed;
-    z-index: 1000; /* Garante que fique acima de todo o resto */
+    z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto; 
-    background-color: rgba(0, 0, 0, 0.85); /* Fundo preto semi-transparente */
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.85);
     justify-content: center;
     align-items: center;
 }
 
-/* A caixa principal que contém o conteúdo */
-/* A caixa principal que contém o conteúdo */
 .modal-content {
-    background-color: #4a2d52; 
+   background: linear-gradient(270deg, #372557, #270d3f, #0c0664);
+    background-size: 600% 600%;
+    animation: gradientMove 6s ease infinite;
     padding: 40px;
-    margin: 15% auto; 
+    margin: 15% auto;
     max-width: 600px;
     width: 90%;
     position: relative;
-    border: 5px solid #000; 
-    clip-path: polygon(
-        5% 0, 95% 0, 100% 5%, 100% 95%, 95% 100%, 5% 100%, 0 95%, 0 5%
-    );
-    font-family: Arial, sans-serif;
-    color: white;
-
-    /* --- NOVAS PROPRIEDADES PARA ROLAGEM --- */
-    max-height: 80vh; /* Define a altura máxima como 80% da altura da tela (viewport) */
-    overflow-y: auto; /* Adiciona a barra de rolagem vertical se o conteúdo exceder a altura */
-    /* ------------------------------------- */
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    color: #f1f5f9;
+    max-height: 80vh;
+    overflow-y: auto;
+    transition: all 0.3s ease;
 }
 
-/* Título e Corpo do Conteúdo */
+.modal-content::-webkit-scrollbar {
+    width: 5px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
 #modal-title {
-    font-family: 'Press Start 2P', cursive;
-    font-size: 1.2em;
-    color: #ffd700; /* Ouro/Amarelo para destaque */
+    font-size: 1.8em;
+    font-weight: 700;
     margin-bottom: 20px;
     text-align: center;
+    background: linear-gradient(135deg, #60a5fa, #a78bfa, #f472b6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .content-box p {
-    font-size: 1em;
+    font-size: 0.95em;
     line-height: 1.6;
     margin-bottom: 10px;
+    color: #e2e8f0;
 }
 
+.content-box ul {
+    list-style: none;
+    padding-left: 0;
+}
 
-/* Botão de fechar (X) */
+.content-box li {
+    margin-bottom: 15px;
+    line-height: 1.6;
+    color: #e2e8f0;
+    padding-left: 20px;
+    position: relative;
+}
+
+.content-box li:before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: #60a5fa;
+}
+
+.content-box h3 {
+    color: #60a5fa;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+.content-box hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.2), transparent);
+    margin: 20px 0;
+}
+
 .close-button {
-    color: #fff;
+    color: #f1f5f9;
     font-size: 30px;
     font-weight: bold;
     position: absolute;
@@ -264,40 +370,29 @@ body {
 
 .close-button:hover,
 .close-button:focus {
-    color: #ff4500; /* Laranja/Vermelho ao passar o mouse */
+    color: #60a5fa;
     text-decoration: none;
     cursor: pointer;
 }
 
-/* NOVO: Espaçamento para os itens da lista dentro do modal */
-.modal-content ul li {
-    margin-bottom: 15px; /* Adiciona 15 pixels de espaço após cada item da lista */
-    line-height: 1.4;    /* Melhora a leitura em caso de linhas longas */
-}
-
-/* Efeito específico para o banner laranja */
-.banner-link[href="#projetos"]:hover {
-    transform: scale(1.05);
-    filter: brightness(1.2);
-}
-
-/* Botões dentro do modal de projetos */
 #modal-body button {
-    font-family: 'Press Start 2P', cursive;
-    font-size: 0.6em;
-    padding: 12px 25px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    font-size: 0.9em;
+    padding: 11px 25px;
     margin: 10px;
     border: none;
-    border-radius: 10px;
+    border-radius: 8px;
     cursor: pointer;
     color: white;
-    background: linear-gradient(90deg, #e43f55, #000000);
-    transition: transform 0.2s, filter 0.2s;
+    background: linear-gradient(135deg, #448566 0%, #0e6e41 100%);
+    transition: all 0.3s ease;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(6, 216, 69, 0.3);
 }
 
 #modal-body button:hover {
-    transform: scale(1.05);
-    filter: brightness(1.2);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(6, 107, 60, 0.4);
 }
 
 .social-buttons {
@@ -310,149 +405,115 @@ body {
 
 .social-btn {
     width: 200px;
-    padding: 10px 15px;
-    border: none;
+    padding: 11px 15px;
+    border: 1px solid rgba(100, 116, 139, 0.3);
     border-radius: 8px;
-    font-weight: bold;
+    font-weight: 600;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    color: white;
-    transition: transform 0.2s ease, opacity 0.2s ease;
+    color: #f1f5f9;
+    transition: all 0.3s ease;
+    background: rgba(30, 41, 59, 0.6);
 }
 
 .social-btn:hover {
-    transform: scale(1.05);
-    opacity: 0.9;
+    transform: translateY(-2px);
+    background: rgba(30, 41, 59, 0.8);
+    border-color: rgba(148, 163, 184, 0.3);
 }
 
-/* Cores específicas */
 .instagram {
-    background-color: #E1306C;
+    background: linear-gradient(135deg, rgba(225, 48, 108, 0.2), rgba(225, 48, 108, 0.1));
+    border-color: rgba(225, 48, 108, 0.3);
+}
+
+.instagram:hover {
+    background: linear-gradient(135deg, rgba(225, 48, 108, 0.3), rgba(225, 48, 108, 0.2));
 }
 
 .linkedin {
-    background-color: #0077B5;
+    background: linear-gradient(135deg, rgba(0, 119, 181, 0.2), rgba(0, 119, 181, 0.1));
+    border-color: rgba(0, 119, 181, 0.3);
+}
+
+.linkedin:hover {
+    background: linear-gradient(135deg, rgba(0, 119, 181, 0.3), rgba(0, 119, 181, 0.2));
 }
 
 .facebook {
-    background-color: #4267B2;
+    background: linear-gradient(135deg, rgba(66, 103, 178, 0.2), rgba(66, 103, 178, 0.1));
+    border-color: rgba(66, 103, 178, 0.3);
 }
 
-/* Ícones */
+.facebook:hover {
+    background: linear-gradient(135deg, rgba(66, 103, 178, 0.3), rgba(66, 103, 178, 0.2));
+}
+
 .icon {
     width: 20px;
     height: 20px;
 }
 
-#social-frame-container iframe {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .banner-section {
+        width: 90%;
+        padding-top: 0;
+        align-items: center;
+    }
+
+    .banner-link {
+        margin: 0 auto;
+    }
+
+    .modal-content {
+        padding: 30px;
+        margin: 30% auto;
+    }
+
+    #modal-title {
+        font-size: 1.3em;
+    }
 }
 
-.modal-content {
-    background-color: #4c2c59; /* padrão roxo */
-    color: white;
-    border-radius: 8px;
-    padding: 20px;
-    width: 80%;
-    max-width: 900px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.4);
-    overflow-y: auto;
-    transition: background-color 0.3s ease;
+.hidden {
+    display: none !important;
 }
 
-/* Seu CSS (styles.css) */
-
-/* Cor padrão do seu banner roxo */
-.modal-content.cor-roxo {
-    /* Pode ser a cor que você já tem, mas com a nova classe */
-    background: linear-gradient(90deg, #803ee9, #602ed4);
-    /* Mantenha o estilo de borda, padding e sombra que você já tem */
+#bg{
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+z-index: 0;
+pointer-events: none;
 }
 
-/* Cor para o banner azul/ciano */
-.modal-content.cor-azul {
-    background: linear-gradient(90deg, #0044ff, #06b9e6);
+@media (max-width: 768px){
+
+.container{
+flex-direction: column;
+justify-content: center;
+gap: 40px;
+padding: 20px;
 }
 
-/* Cor para o banner vermelho */
-.modal-content.cor-vermelho {
-   background: linear-gradient(90deg, #913a3a, #1f0505);
+
+.banner-section{
+width: 100%;
 }
 
-/* Cor para o banner laranja */
-.modal-content.cor-laranja {
-       background: linear-gradient(90deg, #ff8c00, #6d4009);
-
+.banner-link{
+max-width: 90%;
 }
 
-/* Cor para o banner verde */
-.modal-content.cor-verde {
-         background: linear-gradient(90deg, #2c4720, #72a85a);
-
-}
-
-/* ================================================= */
-/* NOVO: EFEITO COBRA GIRATÓRIA NA JANELA (VIEWPORT) */
-/* MAIS CORES RGB E BORDA MAIS GROSSA (10PX)   */
-/* ================================================= */
-
-/* 1. O ELEMENTO COBRA (::before) - Aplica-se ao BODY */
-body::before {
-    content: '';
-    position: fixed; 
-    top: -50%;
-    left: -50%;
-    width: 200vw; 
-    height: 200vh; 
-    
-    /* Degradê MAIS COLORIDO (RGB) que simula a "Cobra" girando */
-    background: conic-gradient(
-        transparent 0deg, 
-        transparent 30%, 
-        #ff0000 35%,    /* VERMELHO */
-        #00ff00 45%,    /* VERDE */
-        #0000ff 55%,    /* AZUL */
-        #ff00ff 65%,    /* MAGENTA */
-        transparent 70%, 
-        transparent 100%
-    );
-    
-    z-index: 1; 
-    animation: girar-viewport 8s linear infinite; /* Aumentei a velocidade para 8s */
-}
-
-/* 2. O ELEMENTO CORTADOR DE BORDA (::after) - Aplica-se ao BODY */
-body::after {
-    content: '';
-    position: fixed; 
-    
-    /* INSET: Mantenha o valor que você escolheu para a espessura da borda */
-    inset: 10px; 
-    
-    /* ---------------------------------------------------- */
-    /* NOVO: PROPRIEDADES PARA O CORTADOR USAR A IMAGEM DE FUNDO */
-    /* ---------------------------------------------------- */
-    background-image: url('imagem/fundoTela.webp'); /* 👈 MESMO CAMINHO DO BODY */
-    background-size: cover;          
-    background-repeat: no-repeat;    
-    background-color: #000000;      
-    background-attachment: fixed;    /* É CRUCIAL USAR FIXED AQUI TAMBÉM */
-    /* ---------------------------------------------------- */
-    
-    z-index: 2; 
-}
-
-/* 3. A ANIMAÇÃO DE ROTAÇÃO (Mantida) */
-@keyframes girar-viewport {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* 4. GARANTE QUE SEU CONTEÚDO FIQUE ACIMA DA ANIMAÇÃO (Mantido) */
-.container {
-    position: relative; 
-    z-index: 3; 
 }
