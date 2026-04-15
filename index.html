@@ -1,75 +1,264 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Luis Gustavo - Currículo</title>
-
-<link rel="icon" type="image/png" href="imagem/favicon.png.png">
-<link rel="stylesheet" href="styles.css">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luis Gustavo | Portfolio</title>
+  <link rel="icon" type="image/png" href="imagem/favicon.png.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
-    <canvas id="bg"></canvas>
-    <div class="background">
-        <div class="blob blob-1" id="blob1"></div>
-        <div class="blob blob-2" id="blob2"></div>
-        <div class="blob blob-3"></div>
-        <div class="grid-pattern"></div>
-        <div class="particles" id="particles"></div>
-    </div>
+  <canvas id="bg" aria-hidden="true"></canvas>
+  <div class="page-bg" aria-hidden="true"></div>
 
-    <div class="container" id="container">
-        <div class="photo-section">
-            <div class="frame-container">
-                <img src="imagem/moldura.png" alt="Moldura estilizada" class="frame-image">
-                <img src="imagem/foto de perfil.jpg" alt="Foto de Perfil" class="profile-photo">
+  <header class="topbar">
+    <nav class="menu" aria-label="Navegacao principal">
+      <a href="#home" class="menu-link active">Inicio</a>
+      <a href="#about" class="menu-link">Sobre</a>
+      <a href="#projects" class="menu-link">Projetos</a>
+      <a href="#contact" class="menu-link">Contato</a>
+    </nav>
+
+    <div class="top-icons" aria-label="Links rapidos">
+      <a class="icon-link" href="https://github.com/LuisGuga00" target="_blank" rel="noreferrer" title="GitHub" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.2.8-.6v-2.1c-3.3.7-4-1.4-4-1.4-.6-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.2 1.9 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.4-5.5-6a4.8 4.8 0 0 1 1.3-3.4c-.1-.3-.6-1.5.1-3.1 0 0 1-.3 3.5 1.3a12 12 0 0 1 6.3 0c2.4-1.6 3.5-1.3 3.5-1.3.7 1.6.2 2.8.1 3.1a4.8 4.8 0 0 1 1.3 3.4c0 4.7-2.8 5.7-5.5 6 .4.3.9 1 .9 2.1v3.1c0 .4.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg>
+      </a>
+      <a class="icon-link" href="https://www.linkedin.com/in/luis-gustavo-brand%C3%A3o-748a73319?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noreferrer" title="LinkedIn" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.9 3.5a2.4 2.4 0 1 0 0 4.8 2.4 2.4 0 0 0 0-4.8ZM2.8 20.5h4.3V9.3H2.8v11.2Zm7 0H14v-6c0-1.6.3-3.2 2.3-3.2s2 1.8 2 3.3v5.9h4.3v-6.7c0-3.3-.7-5.9-4.6-5.9-1.9 0-3.2 1-3.7 2h-.1V9.3H9.8c.1 1.2 0 11.2 0 11.2Z"/></svg>
+      </a>
+      <a class="icon-link" href="https://www.instagram.com/luis_guga00?igsh=MWEwZDkyc3loMm81bg==" target="_blank" rel="noreferrer" title="Instagram" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2.8h10A4.2 4.2 0 0 1 21.2 7v10a4.2 4.2 0 0 1-4.2 4.2H7A4.2 4.2 0 0 1 2.8 17V7A4.2 4.2 0 0 1 7 2.8Zm-.1 2A2.1 2.1 0 0 0 4.8 6.9v10.2a2.1 2.1 0 0 0 2.1 2.1h10.2a2.1 2.1 0 0 0 2.1-2.1V6.9a2.1 2.1 0 0 0-2.1-2.1H6.9Zm10.6 1.5a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg>
+      </a>
+      <a class="icon-link" href="https://wa.me/qr/VOIY56K5NE4KK1" target="_blank" rel="noreferrer" title="WhatsApp" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.7 11.7 0 0 0 2.8 18.2L1.4 23l5-1.3a11.8 11.8 0 0 0 5.6 1.4h.1A11.7 11.7 0 0 0 20.5 3.5Zm-8.4 17.6h-.1a9.7 9.7 0 0 1-4.9-1.4l-.4-.2-3 .8.8-2.9-.2-.4a9.7 9.7 0 1 1 7.8 4.1Zm5.3-7.3c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.8.2l-.8 1c-.1.2-.3.2-.6.1s-1.3-.5-2.5-1.5c-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.4.1-.6l.6-.7c.2-.2.2-.4.3-.6.1-.2 0-.4 0-.6 0-.1-.8-1.9-1.1-2.6-.3-.6-.5-.5-.8-.5h-.7c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.7s1.2 3.2 1.4 3.4c.2.2 2.3 3.6 5.5 5 .8.3 1.5.5 2 .7.8.2 1.5.2 2.1.1.6-.1 1.8-.7 2.1-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.4Z"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="section hero">
+      <div class="hero-text reveal">
+        <h1>Oi, eu sou <span>Luis Gustavo</span></h1>
+        <h2>Desenvolvedor e analista de sistemas</h2>
+        <div class="hero-highlights" aria-label="Resumo profissional de Luis Gustavo">
+          <table class="hero-table">
+            <thead>
+              <tr>
+                <th>Categoria</th>
+                <th>Sobre mim</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Formacao</td>
+                <td>Ensino médio completo - Zeta Objetivo em Birigui<br />Curso de assistente de Logística completo - Portal IDEA</td>
+              </tr>
+              <tr>
+                <td>Tecnologias</td>
+                <td>HTML, CSS, JavaScript e criacao de interfaces web funcionais.</td>
+              </tr>
+              <tr>
+                <td>Diferencial</td>
+                <td>Experiencia administrativa, organizacao e atencao aos detalhes em cada projeto.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="hero-buttons">
+          <a href="#projects" class="btn btn-primary">Ver Projetos</a>
+          <a href="#contact" class="btn btn-secondary">Contato</a>
+        </div>
+      </div>
+
+      <div class="hero-photo reveal delay-1">
+        <div class="photo-ring">
+          <img src="imagem/foto de perfil.jpg" alt="Foto de Luis Gustavo" />
+        </div>
+
+        <div class="orbit orbit-1"><span>JS</span></div>
+        <div class="orbit orbit-2"><span>UI</span></div>
+        <div class="orbit orbit-3"><span>WEB</span></div>
+        <div class="orbit orbit-4"><span>CSS</span></div>
+      </div>
+    </section>
+
+    <section id="about" class="section about">
+      <div class="about-heading">
+        
+        <h3 class="section-title reveal">Sobre Mim</h3>
+      </div>
+
+      <div class="about-grid">
+        <article class="about-card reveal reveal-left">
+          <h4>Resumo</h4>
+          <p>
+            Sou estudante de Análise e Desenvolvimento de Sistemas no Unisalesiano
+             e possuo experiência na área administrativa. Atualmente, estou evoluindo
+             na área de desenvolvimento com foco na criação de soluções web modernas e funcionais.
+          </p>
+        </article>
+
+        <article class="about-card reveal reveal-pop delay-1">
+          <h4>Objetivos</h4>
+          <p>
+            Meu objetivo é atuar como desenvolvedor front-end, crescer em projetos
+            reais e entregar interfaces com ótima experiência para o usuário.
+          </p>
+          <p>
+            Quero continuar estudando JavaScript e frameworks modernos para evoluir
+            cada vez mais como profissional.
+          </p>
+        </article>
+
+        <article class="about-card reveal reveal-right delay-2">
+          <h4>Onde Trabalhei</h4>
+          <ul class="work-list">
+            <li>Anhembi Morumbi - Encarregado Administrativo</li>
+            <li>Alta Noroeste Araçatuba - Assistente Administrativo</li>
+            <li>Conserta Bike Araçatuba - Encarregado Administrativo e Mecânico</li>
+            <li>Mundo Móveis - Auxiliar de Produção</li>
+            <li>Bento's Butiquim - Auxiliar Geral</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="about-skills reveal reveal-pop delay-2">
+        <table class="skills-table" aria-label="Habilidades tecnicas">
+          <thead>
+            <tr>
+              <th>Categoria</th>
+              <th>Habilidades e Tecnologias</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Desenvolvimento Web</td>
+              <td>HTML, CSS, JavaScript, Desenvolvimento Web (Front-end)</td>
+            </tr>
+            <tr>
+              <td>Linguagens</td>
+              <td>C++, Java (Basico/Intermediario), Conceitos de .NET</td>
+            </tr>
+            <tr>
+              <td>Banco de Dados</td>
+              <td>SQL Server (Basico/Intermediario), Modelagem e Administracao de Banco de Dados</td>
+            </tr>
+            <tr>
+              <td>Metodologias</td>
+              <td>Conceitos de Projeto e Testes de Software, Suporte e Manutencao de Sistemas</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    
+    </section>
+
+    <section id="projects" class="section projects">
+      <h3 class="section-title reveal">Projetos</h3>
+
+      <div class="project-grid">
+        <article class="project-card reveal reveal-left">
+          <img src="imagem/projeto 1 .png" alt="Preview do projeto Loja Virtual" />
+          <div class="project-content">
+            <h4>Loja Virtual</h4>
+            <p>Projeto com catalogo e navegacao de produtos. Objetivo desse projeto foi tentar fazer algo sem o CSS</p>
+            <div class="project-actions">
+              <a href="trabalho/PRINCIPAL.html" target="_blank" rel="noreferrer">Live Demo</a>
             </div>
-        </div>
+          </div>
+        </article>
 
-        <div class="banner-section" >
-            <a href="#dados-pessoais" class="banner-link" data-color="roxo" 
-               onclick="openModal(this, 'DADOS PESSOAIS', '<center><p><strong>Nome:</strong> Luis Gustavo Dos Santos Brandao</p><p><strong>E-mail:</strong> Luisgubrandao@gmail.com</p><p><strong>Celular:</strong> (18) 997588429</p><p><strong>Naturalidade:</strong> Bilac-SP</p><p><strong>Data de nascimento:</strong> 27/12/2003</p><p><strong>Endereço:</strong> Rua Manuel Balthazar sobrinho, 48</p><p><strong>Cidade:</strong> Araçatuba</p><p><strong>CEP:</strong> 16013-190</p><p><strong>CNH:</strong> A/B</p>')">
-                <span class="banner-text">DADOS PESSOAIS</span>
-                
-            </a>
-
-            <a href="#formacao" class="banner-link" data-color="azul"
-               onclick="openModal(this, 'FORMAÇÃO', '<center><ul><li><strong>ENSINO MÉDIO COMPLETO</strong> - ZETA OBJETIVO EM BIRIGUI</li><li><strong>CURSO DE ASSISTENTE DE LOGÍSTICA COMPLETO</strong> - PORTAL IDEA</li><li><strong>CURSO DE INFORMÁTICA</strong> (SOBRE O PACOTE OFFICE) NA VIACERTA DE BURITAMA</li><li><strong>CURSANDO ANÁLISE E DESENVOLVIMENTO DE SISTEMA</strong> (TDS) NO UNISALESIANO DE ARAÇATUBA - INÍCIO 08/22 - PREVISÃO 08/26</li></ul>')">
-                <span class="banner-text">FORMAÇÃO</span>
-            </a>
-
-            <a href="#experiencia" class="banner-link" data-color="vermelho"
-               onclick="openModal(this, 'EXPERIÊNCIA PROFISSIONAL', '<center><h3>Empresa: Alta Noroeste Araçatuba</h3> <p><strong>Cidade:</strong> Araçatuba – SP</p><p><strong>Período:</strong>16/06/2025 á 29/01/2026</p><p><strong>Função:</strong> Assistente Administrativo</p><p><strong>Descrição:</strong> Responsável por dar suporte às atividades administrativas, garantindo a organização e atualização de documentos. Atua no controle e acompanhamento de processos internos, auxiliando nas rotinas do setor, atividades administrativas no setor logística e expedição, atuando com roteirização de produtos, ferramentas e matéria prima, atendendo as demandas das obras da empresa em todo País.</p><hr><h3>Empresa: P.S Bike Araçatuba</h3><p><strong>Cidade:</strong> Araçatuba – SP</p><p><strong>Período:</strong> Desde Janeiro de 2025</p><p><strong>Função:</strong> Encarregado Administrativo e Mecânico</p><p><strong>Descrição:</strong> Prestar suporte administrativo geral, incluindo gerenciamento de correspondências, agenda e preparação de relatórios. Manter e atualizar registros e arquivos, garantindo a precisão e confidencialidade dos dados. Gerenciar o estoque de suprimentos de escritório e fazer pedidos conforme necessário. Empresa familiar.</p><hr><h3>Empresa: Restaurante DR Buritama</h3><p><strong>Cidade:</strong> Buritama – SP</p><p><strong>Período:</strong> Freelancer</p><p><strong>Função:</strong> BarMan</p><p><strong>Descrição:</strong> Responsável por preparar e servir drinks, coquetéis e chope aos clientes, garantindo um atendimento de qualidade. Atuação na organização do ambiente de trabalho, zelando pela ordem e limpeza do bar. Realizava também a coleta, lavagem e higienização de bandejas, copos e demais utensílios utilizados no atendimento, assegurando a manutenção dos padrões de higiene e eficiência no serviço.</p><hr><h3>Empresa: Conserta Bike Araçatuba</h3><p><strong>Cidade:</strong> Araçatuba – SP</p><p><strong>Período:</strong> Janeiro de 2023 à Janeiro de 2025</p><p><strong>Função:</strong> Encarregado Administrativo e Mecânico</p><hr><h3>Empresa: Mundo Móveis</h3><p><strong>Cidade:</strong> Birigui – SP</p><p><strong>Período:</strong> Outubro de 2022 à Novembro de 2022 (temporário)</p><p><strong>Função:</strong> Auxiliar de Produção</p><p><strong>Descrição:</strong> Montagens de sofás, camas e poltronas; cortador de tecidos e madeiras para montagens dos móveis; empacotar os móveis, como sofás, camas e poltronas e demais tarefas do cargo.</p><hr><h3>Empresa: Bento\'s Butiquim - Birigui</h3><p><strong>Cidade:</strong> Birigui – SP</p><p><strong>Período:</strong> Junho de 2022 à Outubro de 2022</p><p><strong>Função:</strong> Auxiliar Geral</p><p><strong>Descrição:</strong> Preparação de alimentos, limpeza e conservação das dependências do restaurante, lanchonete e dos equipamentos existentes. Auxiliar no preparo das refeições, sobremesas, lanches, etc. Manter a ordem e a limpeza da cozinha, procedendo a coleta e a lavagem das bandejas, talheres entre outras funções.</p><hr><h3>Empresa: Mobi Logística LTDA</h3><p><strong>Cidade:</strong> Araçatuba – SP</p><p><strong>Período:</strong> Abril de 2021 à Junho de 2022</p><p><strong>Função:</strong> Motofretista Esporádico</p><p><strong>Descrição:</strong> Motofretista entregador de pequenas encomendas em general, na filial da empresa Mobi de Araçatuba, atuando nas cidades vizinhas, num raio de até 100 km.</p>')">
-                <span class="banner-text">EXPERIÊNCIA PROFISSIONAL</span>
-            </a>
-
-            <a href="#projetos" class="banner-link" data-color="laranja"
-               onclick="openProjectsModal(this)">
-                <span class="banner-text">PROJETOS</span>
-            </a>
-
-            <a href="#redes" class="banner-link" data-color="verde"
-               onclick="openModalSocial(this)">
-                <span class="banner-text">REDES SOCIAIS</span>
-            </a>
-        </div>
-    </div>
-
-    <div id="info-modal" class="modal-overlay">
-        <div class="modal-content">
-            <span class="close-button" onclick="closeModal()">&times;</span>
-            <h2 id="modal-title"></h2>
-            <div id="modal-body" class="content-box">
-                <p>Aqui você vai inserir as informações detalhadas da seção.</p>
+        <article class="project-card reveal reveal-pop delay-1">
+          <img src="imagem/projeto 2.png" alt="Preview do projeto Site Games" />
+          <div class="project-content">
+            <h4>Site Games</h4>
+            <p>Landing pages tematicas para conteudos de jogos. Aqui foi a primeira vez aplicando o CSS</p>
+            <div class="project-actions">
+              <a href="site/index.html" target="_blank" rel="noreferrer">Live Demo</a>
             </div>
+          </div>
+        </article>
+
+        <article class="project-card reveal reveal-right delay-2">
+          <img src="imagem/projeto 3.png" alt="Preview do Projeto Web" />
+          <div class="project-content">
+            <h4>Projeto Web</h4>
+            <p>Aplicacao front-end com layout responsivo e animacoes. Nesse projeto foi a onde aplicamos o API pela primeira vez</p>
+            <div class="project-actions">
+              <a href="projeto/index.html" target="_blank" rel="noreferrer">Live Demo</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact">
+      <h3 class="section-title reveal">Contato</h3>
+
+      <div class="contact-grid">
+        <div class="contact-info reveal reveal-left">
+          <p>Vamos colaborar? Estou aberto a novos projetos e oportunidades.</p>
+          <ul>
+            <li>Luisgubrandao@gmail.com</li>
+            <li>+55 (18) 99758-8429</li>
+            <li>Aracatuba - SP</li>
+          </ul>
+          <div class="contact-socials">
+            <a class="icon-link" href="https://github.com/LuisGuga00" target="_blank" rel="noreferrer" title="GitHub" aria-label="GitHub">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.2.8-.6v-2.1c-3.3.7-4-1.4-4-1.4-.6-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.2 1.9 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.4-5.5-6a4.8 4.8 0 0 1 1.3-3.4c-.1-.3-.6-1.5.1-3.1 0 0 1-.3 3.5 1.3a12 12 0 0 1 6.3 0c2.4-1.6 3.5-1.3 3.5-1.3.7 1.6.2 2.8.1 3.1a4.8 4.8 0 0 1 1.3 3.4c0 4.7-2.8 5.7-5.5 6 .4.3.9 1 .9 2.1v3.1c0 .4.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg>
+            </a>
+            <a class="icon-link" href="https://www.linkedin.com/in/luis-gustavo-brand%C3%A3o-748a73319?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noreferrer" title="LinkedIn" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.9 3.5a2.4 2.4 0 1 0 0 4.8 2.4 2.4 0 0 0 0-4.8ZM2.8 20.5h4.3V9.3H2.8v11.2Zm7 0H14v-6c0-1.6.3-3.2 2.3-3.2s2 1.8 2 3.3v5.9h4.3v-6.7c0-3.3-.7-5.9-4.6-5.9-1.9 0-3.2 1-3.7 2h-.1V9.3H9.8c.1 1.2 0 11.2 0 11.2Z"/></svg>
+            </a>
+            <a class="icon-link" href="https://www.instagram.com/luis_guga00?igsh=MWEwZDkyc3loMm81bg==" target="_blank" rel="noreferrer" title="Instagram" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2.8h10A4.2 4.2 0 0 1 21.2 7v10a4.2 4.2 0 0 1-4.2 4.2H7A4.2 4.2 0 0 1 2.8 17V7A4.2 4.2 0 0 1 7 2.8Zm-.1 2A2.1 2.1 0 0 0 4.8 6.9v10.2a2.1 2.1 0 0 0 2.1 2.1h10.2a2.1 2.1 0 0 0 2.1-2.1V6.9a2.1 2.1 0 0 0-2.1-2.1H6.9Zm10.6 1.5a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg>
+            </a>
+            <a class="icon-link" href="https://wa.me/5518997588429" target="_blank" rel="noreferrer" title="WhatsApp" aria-label="WhatsApp">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.7 11.7 0 0 0 2.8 18.2L1.4 23l5-1.3a11.8 11.8 0 0 0 5.6 1.4h.1A11.7 11.7 0 0 0 20.5 3.5Zm-8.4 17.6h-.1a9.7 9.7 0 0 1-4.9-1.4l-.4-.2-3 .8.8-2.9-.2-.4a9.7 9.7 0 1 1 7.8 4.1Zm5.3-7.3c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.8.2l-.8 1c-.1.2-.3.2-.6.1s-1.3-.5-2.5-1.5c-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.4.1-.6l.6-.7c.2-.2.2-.4.3-.6.1-.2 0-.4 0-.6 0-.1-.8-1.9-1.1-2.6-.3-.6-.5-.5-.8-.5h-.7c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.7s1.2 3.2 1.4 3.4c.2.2 2.3 3.6 5.5 5 .8.3 1.5.5 2 .7.8.2 1.5.2 2.1.1.6-.1 1.8-.7 2.1-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.4Z"/></svg>
+            </a>
+            <a class="icon-link" href="mailto:Luisgubrandao@gmail.com" title="Email" aria-label="Email">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 5.5A2.5 2.5 0 0 1 5 3h14a2.5 2.5 0 0 1 2.5 2.5v13A2.5 2.5 0 0 1 19 21H5a2.5 2.5 0 0 1-2.5-2.5v-13Zm2.4-.5L12 10.3 19.1 5H4.9Zm14.6 2.5-6.8 5a1.2 1.2 0 0 1-1.4 0l-6.8-5V18a.5.5 0 0 0 .5.5h14a.5.5 0 0 0 .5-.5V7.5Z"/></svg>
+            </a>
+          </div>
+          <div class="contact-links">
+            <a href="https://www.linkedin.com/in/luis-gustavo-brand%C3%A3o-748a73319?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a href="https://github.com/LuisGuga00" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="https://www.instagram.com/luis_guga00?igsh=MWEwZDkyc3loMm81bg==" target="_blank" rel="noreferrer">Instagram</a>
+            <a href="https://wa.me/qr/VOIY56K5NE4KK1" target="_blank" rel="noreferrer">WhatsApp</a>
+          </div>
         </div>
-    </div>
 
- <script src="script.js"></script>
+        <figure class="story-photo photo-contact reveal reveal-pop delay-1">
+          <img src="imagem/WhatsApp Image 2026-04-15 at 19.31.37.jpeg" alt="Luis Gustavo em outro momento pessoal" />
+        </figure>
 
+        <form class="contact-form reveal reveal-right delay-1" action="https://formsubmit.co/ajax/Luisgubrandao@gmail.com" method="post">
+          <p class="contact-note">Preencha os campos e envie sua mensagem direto pelo site.</p>
+          <input type="hidden" name="_subject" value="Novo contato pelo portfólio" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_captcha" value="true" />
+          <input type="text" name="_honey" class="form-honeypot" tabindex="-1" autocomplete="off" />
+          <input type="text" name="nome" placeholder="Seu Nome" required />
+          <input type="email" name="email" placeholder="Seu Email" required />
+          <textarea name="mensagem" rows="4" placeholder="Sua Mensagem" required></textarea>
+          <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
+          <p class="form-status" aria-live="polite"></p>
+        </form>
+      </div>
+
+    
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; <span id="current-year"></span> Luis Gustavo. Todos os direitos reservados.</p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
