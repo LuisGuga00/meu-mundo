@@ -1,243 +1,187 @@
-const CORES_MODAL = ['roxo', 'azul', 'vermelho', 'laranja', 'verde'];
+const menuLinks = document.querySelectorAll('.menu-link');
+const sections = document.querySelectorAll('main .section');
+const reveals = document.querySelectorAll('.reveal');
+const year = document.getElementById('current-year');
 
-function createParticles() {
-    const particlesContainer = document.getElementById('particles');
-    for (let i = 0; i < 20; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-
-        const x = Math.random() * 100;
-        const y = Math.random() * 100;
-        const duration = 3 + Math.random() * 4;
-        const delay = Math.random() * 2;
-        const tx = (Math.random() * 50 - 25);
-
-        particle.style.left = `${x}%`;
-        particle.style.top = `${y}%`;
-        particle.style.setProperty('--tx', `${tx}px`);
-        particle.style.animationDuration = `${duration}s`;
-        particle.style.animationDelay = `${delay}s`;
-
-        particlesContainer.appendChild(particle);
-    }
+if (year) {
+  year.textContent = new Date().getFullYear();
 }
 
-document.addEventListener('mousemove', (e) => {
-    const container = document.getElementById('container');
-    const rect = container.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+const sectionObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
 
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
+      const id = entry.target.getAttribute('id');
 
-    const moveX = (x - centerX) / centerX;
-    const moveY = (y - centerY) / centerY;
+      menuLinks.forEach((link) => {
+        const isActive = link.getAttribute('href') === `#${id}`;
+        link.classList.toggle('active', isActive);
+      });
+    });
+  },
+  { threshold: 0.45 }
+);
 
-    const blob1 = document.getElementById('blob1');
-    const blob2 = document.getElementById('blob2');
+sections.forEach((section) => sectionObserver.observe(section));
 
-    if (blob1) blob1.style.transform = `translate(${moveX * 60}px, ${moveY * 60}px)`;
-    if (blob2) blob2.style.transform = `translate(${moveX * -40}px, ${moveY * -40}px)`;
+const revealObserver = new IntersectionObserver(
+  (entries, observer) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('show');
+      observer.unobserve(entry.target);
+    });
+  },
+  { threshold: 0.12, rootMargin: '0px 0px -10% 0px' }
+);
 
-    container.style.setProperty('--mouse-x', `${x}px`);
-    container.style.setProperty('--mouse-y', `${y}px`);
+reveals.forEach((item) => revealObserver.observe(item));
+
+document.querySelector('.contact-form')?.addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const form = event.currentTarget;
+  const status = form.querySelector('.form-status');
+  const submitButton = form.querySelector('button[type="submit"]');
+  const formData = new FormData(form);
+
+  if (status) {
+    status.textContent = 'Enviando mensagem...';
+    status.classList.remove('is-success', 'is-error');
+  }
+
+  if (submitButton) {
+    submitButton.disabled = true;
+    submitButton.textContent = 'Enviando...';
+  }
+
+  try {
+    const response = await fetch(form.action, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        Accept: 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error('Falha no envio');
+    }
+
+    form.reset();
+
+    if (status) {
+      status.textContent = 'Mensagem enviada com sucesso. Vou receber no email cadastrado.';
+      status.classList.remove('is-error');
+      status.classList.add('is-success');
+    }
+  } catch (error) {
+    if (status) {
+      status.textContent = 'Nao foi possivel enviar agora. Tente novamente em instantes.';
+      status.classList.remove('is-success');
+      status.classList.add('is-error');
+    }
+  } finally {
+    if (submitButton) {
+      submitButton.disabled = false;
+      submitButton.textContent = 'Enviar Mensagem';
+    }
+  }
 });
 
-function applyModalColor(elementClicked) {
-    const modalContent = document.querySelector('#info-modal .modal-content');
-    const color = elementClicked.getAttribute('data-color');
+const backgroundCanvas = document.getElementById('bg');
 
-    CORES_MODAL.forEach(c => modalContent.classList.remove(`cor-${c}`));
+if (backgroundCanvas) {
+  const ctx = backgroundCanvas.getContext('2d');
+  const pointer = { x: null, y: null };
+  let particles = [];
 
-    if (color) {
-        modalContent.classList.add(`cor-${color}`);
+  function setCanvasSize() {
+    backgroundCanvas.width = window.innerWidth;
+    backgroundCanvas.height = window.innerHeight;
+  }
+
+  class BackgroundParticle {
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+      this.size = Math.random() * 1.0 + 0.8;
+      this.vx = (Math.random() - 0.5) * 0.45;
+      this.vy = (Math.random() - 0.5) * 0.45;
     }
-}
 
-function openModal(element, title, contentHtml) {
-    applyModalColor(element);
-
-    const modal = document.getElementById('info-modal');
-    const modalTitle = document.getElementById('modal-title');
-    const modalBody = document.getElementById('modal-body');
-
-    modalTitle.innerText = title;
-    modalBody.innerHTML = contentHtml;
-
-    modal.style.display = 'flex';
-}
-
-function closeModal() {
-    document.getElementById('info-modal').style.display = 'none';
-}
-
-window.onclick = function(event) {
-    const modal = document.getElementById('info-modal');
-    if (event.target == modal) {
-        modal.style.display = 'none';
+    draw() {
+      ctx.beginPath();
+      ctx.fillStyle = 'rgb(255, 255, 255)';
+      ctx.shadowColor = 'rgb(255, 255, 255)';
+      ctx.shadowBlur = 100;
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
     }
+
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+
+      if (pointer.x !== null && pointer.y !== null) {
+        const dx = this.x - pointer.x;
+        const dy = this.y - pointer.y;
+        const distance = Math.hypot(dx, dy);
+
+        if (distance < 60) {
+          this.x += dx / 20;
+          this.y += dy / 20;
+        }
+      }
+
+      if (this.x < 0 || this.x > backgroundCanvas.width) this.vx *= -1;
+      if (this.y < 0 || this.y > backgroundCanvas.height) this.vy *= -1;
+    }
+  }
+
+  function createBackgroundParticles() {
+    particles = [];
+    const total = window.innerWidth < 1000 ? 500 : 500;
+
+    for (let index = 0; index < total; index += 1) {
+      particles.push(
+        new BackgroundParticle(
+          Math.random() * backgroundCanvas.width,
+          Math.random() * backgroundCanvas.height
+        )
+      );
+    }
+  }
+
+  function animateBackground() {
+    ctx.clearRect(0, 0, backgroundCanvas.width, backgroundCanvas.height);
+
+    particles.forEach((particle) => {
+      particle.update();
+      particle.draw();
+    });
+
+    requestAnimationFrame(animateBackground);
+  }
+
+  window.addEventListener('mousemove', (event) => {
+    pointer.x = event.clientX;
+    pointer.y = event.clientY;
+  });
+
+  window.addEventListener('mouseleave', () => {
+    pointer.x = null;
+    pointer.y = null;
+  });
+
+  window.addEventListener('resize', () => {
+    setCanvasSize();
+    createBackgroundParticles();
+  });
+
+  setCanvasSize();
+  createBackgroundParticles();
+  animateBackground();
 }
-
-function openProjectsModal(element) {
-    applyModalColor(element);
-
-    const modal = document.getElementById('info-modal');
-    const modalTitle = document.getElementById('modal-title');
-    const modalBody = document.getElementById('modal-body');
-
-    modalTitle.innerText = 'PROJETOS';
-
-    modalBody.innerHTML = `
-        <div style="text-align:center;">
-            <button onclick="loadProject('trabalho/PRINCIPAL.html')" style="margin:10px;">
-                Projeto 1
-            </button>
-            <button onclick="loadProject('site/index.html')" style="margin:10px;">
-                Projeto 2
-            </button>
-            <button onclick="loadProject('projeto/index.html')" style="margin:10px;">
-                Projeto 3
-            </button>
-        </div>
-        <div id="project-frame-container" style="margin-top:20px;"></div>
-    `;
-
-    modal.style.display = 'flex';
-}
-
-function loadProject(projectPath) {
-    const container = document.getElementById('project-frame-container');
-    container.innerHTML = `
-        <iframe src="${projectPath}" 
-                style="width:100%; height:70vh; border:none; border-radius:10px;">
-        </iframe>
-    `;
-}
-
-function openModalSocial(element) {
-    applyModalColor(element);
-
-    const modal = document.getElementById('info-modal');
-    const modalTitle = document.getElementById('modal-title');
-    const modalBody = document.getElementById('modal-body');
-
-    modalTitle.innerText = "REDES SOCIAIS";
-    modalBody.innerHTML = `
-        <div class="social-buttons">
-            <button class="social-btn instagram" onclick="openSocial('https://www.instagram.com/luis_guga00')">
-                <img src="imagem/instagram.png" alt="Instagram" class="icon"> Instagram
-            </button>
-            <button class="social-btn linkedin" onclick="openSocial('https://www.linkedin.com/in/luis-gustavo-brandão-748a73319')">
-                <img src="imagem/linkedin.png" alt="LinkedIn" class="icon"> LinkedIn
-            </button>
-            <button class="social-btn facebook" onclick="openSocial('https://www.facebook.com/luis.gustavo.947753?locale=pt_BR')">
-                <img src="imagem/facebook.png" alt="Facebook" class="icon"> Facebook
-            </button>
-        </div>
-    `;
-
-    modal.style.display = 'flex';
-}
-
-function openSocial(url) {
-    window.open(url, '_blank');
-}
-
-const canvas = document.getElementById("bg");
-const ctx = canvas.getContext("2d");
-
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let mouse = {x:null,y:null};
-
-window.addEventListener("mousemove",(event)=>{
-mouse.x = event.x;
-mouse.y = event.y;
-});
-
-class Particle{
-
-constructor(x,y){
-
-this.x = x;
-this.y = y;
-
-this.size = 1.5;
-
-this.vx = (Math.random()-0.5)*0.5;
-this.vy = (Math.random()-0.5)*0.5;
-
-}
-
-draw(){
-
-ctx.fillStyle="#7c26a3ff";
-
-ctx.beginPath();
-ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
-ctx.fill();
-
-}
-
-update(){
-
-this.x += this.vx;
-this.y += this.vy;
-
-let dx = this.x - mouse.x;
-let dy = this.y - mouse.y;
-
-let distance = Math.sqrt(dx*dx + dy*dy);
-
-if(distance < 50){
-
-this.x += dx/15;
-this.y += dy/15;
-
-}
-
-if(this.x < 0 || this.x > canvas.width) this.vx *= -1;
-if(this.y < 0 || this.y > canvas.height) this.vy *= -1;
-
-}
-
-}
-
-let particles = [];
-
-function init(){
-
-particles=[];
-
-for(let i=0;i<2000;i++){
-
-let x=Math.random()*canvas.width;
-let y=Math.random()*canvas.height;
-
-particles.push(new Particle(x,y));
-
-}
-
-}
-
-function animate(){
-
-ctx.clearRect(0,0,canvas.width,canvas.height);
-
-particles.forEach(p=>{
-p.update();
-p.draw();
-});
-
-requestAnimationFrame(animate);
-
-}
-
-init();
-animate();
-
-
-
-createParticles();
