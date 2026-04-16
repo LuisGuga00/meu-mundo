@@ -38,6 +38,71 @@ const revealObserver = new IntersectionObserver(
 
 reveals.forEach((item) => revealObserver.observe(item));
 
+const contactForm = document.querySelector('.contact-form');
+
+if (contactForm) {
+  const nextInput = contactForm.querySelector('input[name="_next"]');
+
+  if (nextInput) {
+    const nextUrl = new URL(window.location.href);
+    nextUrl.hash = 'contact';
+    nextInput.value = nextUrl.toString();
+  }
+}
+
+contactForm?.addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const form = event.currentTarget;
+  const status = form.querySelector('.form-status');
+  const submitButton = form.querySelector('button[type="submit"]');
+  const formData = new FormData(form);
+  const requestUrl = form.dataset.ajaxAction || form.action;
+
+  if (status) {
+    status.textContent = 'Enviando mensagem...';
+    status.classList.remove('is-success', 'is-error');
+  }
+
+  if (submitButton) {
+    submitButton.disabled = true;
+    submitButton.textContent = 'Enviando...';
+  }
+
+  try {
+    const response = await fetch(requestUrl, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        Accept: 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error('Falha no envio');
+    }
+
+    form.reset();
+
+    if (status) {
+      status.textContent = 'Mensagem enviada com sucesso. Vou receber no e-mail cadastrado.';
+      status.classList.remove('is-error');
+      status.classList.add('is-success');
+    }
+  } catch (error) {
+    if (status) {
+      status.textContent = 'Não foi possível enviar agora. Tente novamente em instantes.';
+      status.classList.remove('is-success');
+      status.classList.add('is-error');
+    }
+  } finally {
+    if (submitButton) {
+      submitButton.disabled = false;
+      submitButton.textContent = 'Enviar mensagem';
+    }
+  }
+});
+
 const backgroundCanvas = document.getElementById('bg');
 
 if (backgroundCanvas) {
