@@ -91,7 +91,7 @@ contactForm?.addEventListener('submit', async (event) => {
     }
   } catch (error) {
     if (status) {
-      status.textContent = 'Não foi possível enviar agora. Tente novamente em instantes.';
+      status.textContent = 'Nao foi possivel enviar agora. Tente novamente em instantes.';
       status.classList.remove('is-success');
       status.classList.add('is-error');
     }
@@ -119,16 +119,16 @@ if (backgroundCanvas) {
     constructor(x, y) {
       this.x = x;
       this.y = y;
-      this.size = Math.random() * 1.0 + 0.8;
-      this.vx = (Math.random() - 0.5) * 0.45;
-      this.vy = (Math.random() - 0.5) * 0.45;
+      this.size = Math.random() * 1.8 + 0.4;
+      this.vx = (Math.random() - 0.5) * 0.35;
+      this.vy = (Math.random() - 0.5) * 0.35;
     }
 
     draw() {
       ctx.beginPath();
-      ctx.fillStyle = 'rgb(255, 255, 255)';
-      ctx.shadowColor = 'rgb(255, 255, 255)';
-      ctx.shadowBlur = 100;
+      ctx.fillStyle = 'rgba(255,255,255,0.9)';
+      ctx.shadowColor = 'rgba(255, 59, 59, 0.45)';
+      ctx.shadowBlur = 18;
       ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
       ctx.fill();
       ctx.shadowBlur = 0;
@@ -143,9 +143,9 @@ if (backgroundCanvas) {
         const dy = this.y - pointer.y;
         const distance = Math.hypot(dx, dy);
 
-        if (distance < 60) {
-          this.x += dx / 20;
-          this.y += dy / 20;
+        if (distance < 110) {
+          this.x += dx / 35;
+          this.y += dy / 35;
         }
       }
 
@@ -156,7 +156,7 @@ if (backgroundCanvas) {
 
   function createBackgroundParticles() {
     particles = [];
-    const total = window.innerWidth < 1000 ? 500 : 500;
+    const total = window.innerWidth < 780 ? 70 : 120;
 
     for (let index = 0; index < total; index += 1) {
       particles.push(
@@ -175,6 +175,23 @@ if (backgroundCanvas) {
       particle.update();
       particle.draw();
     });
+
+    for (let index = 0; index < particles.length; index += 1) {
+      for (let next = index + 1; next < particles.length; next += 1) {
+        const dx = particles[index].x - particles[next].x;
+        const dy = particles[index].y - particles[next].y;
+        const distance = Math.hypot(dx, dy);
+
+        if (distance > 120) continue;
+
+        ctx.beginPath();
+        ctx.moveTo(particles[index].x, particles[index].y);
+        ctx.lineTo(particles[next].x, particles[next].y);
+        ctx.strokeStyle = `rgba(255, 59, 59, ${0.14 - distance / 1100})`;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+    }
 
     requestAnimationFrame(animateBackground);
   }
@@ -198,3 +215,25 @@ if (backgroundCanvas) {
   createBackgroundParticles();
   animateBackground();
 }
+
+const hoverTiltElements = document.querySelectorAll('.hover-tilt');
+
+hoverTiltElements.forEach((element) => {
+  element.addEventListener('mousemove', (event) => {
+    const rect = element.getBoundingClientRect();
+    const offsetX = event.clientX - rect.left;
+    const offsetY = event.clientY - rect.top;
+    const rotateY = ((offsetX / rect.width) - 0.5) * 10;
+    const rotateX = (0.5 - (offsetY / rect.height)) * 10;
+
+    element.style.setProperty('--mx', `${(offsetX / rect.width) * 100}%`);
+    element.style.setProperty('--my', `${(offsetY / rect.height) * 100}%`);
+    element.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+  });
+
+  element.addEventListener('mouseleave', () => {
+    element.style.transform = '';
+    element.style.removeProperty('--mx');
+    element.style.removeProperty('--my');
+  });
+});
