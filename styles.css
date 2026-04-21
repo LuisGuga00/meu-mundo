@@ -21,11 +21,17 @@ html {
 }
 
 body {
+  position: relative;
   font-family: "Poppins", sans-serif;
   color: var(--text);
-  background: var(--bg);
+  background:
+    radial-gradient(circle at 18% 20%, rgba(255, 42, 42, 0.18), transparent 30%),
+    radial-gradient(circle at 82% 18%, rgba(255, 42, 42, 0.1), transparent 25%),
+    radial-gradient(circle at 72% 78%, rgba(150, 240, 143, 0.07), transparent 22%),
+    linear-gradient(135deg, #040405 0%, #08090d 55%, #050507 100%);
   min-height: 100vh;
   line-height: 1.5;
+  overflow-x: hidden;
 }
 
 #bg {
@@ -42,22 +48,22 @@ body {
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(circle at 20% 20%, rgba(255, 0, 0, 0.12), transparent 35%),
-    radial-gradient(circle at 82% 28%, rgba(255, 0, 0, 0.08), transparent 34%),
-    linear-gradient(160deg, rgba(4, 4, 6, 0.82) 0%, rgba(6, 7, 10, 0.84) 35%, rgba(8, 9, 13, 0.9) 100%);
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 72px 72px;
+  opacity: 0.45;
+  mask-image: radial-gradient(circle at center, black 58%, transparent 100%);
 }
 
 .page-bg::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent 0,
-    transparent 47px,
-    rgba(255, 255, 255, 0.02) 48px
-  );
-  opacity: 0.35;
+  background:
+    radial-gradient(circle at 22% 18%, rgba(255, 42, 42, 0.12), transparent 28%),
+    radial-gradient(circle at 78% 14%, rgba(255, 42, 42, 0.08), transparent 24%),
+    radial-gradient(circle at 70% 82%, rgba(150, 240, 143, 0.06), transparent 22%);
+  opacity: 0.9;
 }
 
 .topbar {
@@ -66,8 +72,9 @@ body {
   padding: 14px 18px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: rgba(7, 8, 11, 0.9);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  background: rgba(7, 8, 11, 0.78);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.34);
+  backdrop-filter: blur(18px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -190,6 +197,7 @@ main {
 }
 
 .hero-highlights {
+  position: relative;
   max-width: 620px;
   margin-top: 18px;
   border: 1px solid rgba(255, 42, 42, 0.22);
@@ -202,6 +210,20 @@ main {
 .hero-table {
   width: 100%;
   border-collapse: collapse;
+}
+
+.hero-table tbody tr,
+.skills-table tbody tr {
+  transition:
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.28s ease,
+    box-shadow 0.28s ease;
+}
+
+.hero-table tbody tr:hover,
+.skills-table tbody tr:hover {
+  transform: translateX(6px);
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .hero-table thead {
@@ -276,6 +298,48 @@ main {
 .btn-secondary:hover {
   border-color: var(--red);
   color: #fff;
+}
+
+.about-card,
+.project-card,
+.about-skills,
+.contact-info,
+.contact-form {
+  position: relative;
+}
+
+.hover-tilt {
+  transform-style: preserve-3d;
+  transition:
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.28s ease,
+    border-color 0.28s ease,
+    filter 0.28s ease;
+  will-change: transform;
+}
+
+.hover-tilt::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.13), transparent 42%);
+  opacity: 0;
+  transition: opacity 0.28s ease;
+  pointer-events: none;
+}
+
+.hover-tilt:hover {
+  border-color: rgba(255, 59, 59, 0.3);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.26),
+    0 0 0 1px rgba(255, 59, 59, 0.08) inset,
+    0 0 26px rgba(255, 59, 59, 0.1);
+  filter: brightness(1.02);
+}
+
+.hover-tilt:hover::after {
+  opacity: 1;
 }
 
 .hero-photo {
