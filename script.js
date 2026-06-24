@@ -237,3 +237,209 @@ hoverTiltElements.forEach((element) => {
     element.style.removeProperty('--my');
   });
 });
+
+/* ============================================================ */
+/* NEON GAMER ANIMATIONS                                        */
+/* ============================================================ */
+
+// Cursor customizado neon
+const cursor = document.querySelector('.cursor');
+const cursorDot = document.querySelector('.cursor-dot');
+const isCoarsePointer = window.matchMedia('(hover: none)').matches;
+
+if (cursor && cursorDot && !isCoarsePointer) {
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let cursorX = mouseX;
+  let cursorY = mouseY;
+
+  document.addEventListener('mousemove', (event) => {
+    mouseX = event.clientX;
+    mouseY = event.clientY;
+
+    cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+  });
+
+  function animateCursor() {
+    cursorX += (mouseX - cursorX) * 0.18;
+    cursorY += (mouseY - cursorY) * 0.18;
+
+    cursor.style.transform = `translate(${cursorX}px, ${cursorY}px) translate(-50%, -50%)`;
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+
+  // Detecta elementos interativos para "engordar" o cursor
+  const interactiveElements = document.querySelectorAll('a, button, .icon-link, .btn, .menu-link, .project-card, .about-card, input, textarea');
+
+  interactiveElements.forEach((el) => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('is-hover'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('is-hover'));
+  });
+
+  // Esconde o cursor quando sai da janela
+  document.addEventListener('mouseleave', () => {
+    cursor.style.opacity = '0';
+    cursorDot.style.opacity = '0';
+  });
+
+  document.addEventListener('mouseenter', () => {
+    cursor.style.opacity = '1';
+    cursorDot.style.opacity = '1';
+  });
+}
+
+// Adiciona classe "is-loaded" no body após carregamento
+window.addEventListener('load', () => {
+  document.body.classList.add('is-loaded');
+});
+
+/* ============================================================ */
+/* PROJECT MODAL                                                */
+/* ============================================================ */
+
+const projectModal = document.getElementById('projectModal');
+const modalIframe = projectModal?.querySelector('.modal-iframe');
+const modalLoader = projectModal?.querySelector('.modal-loader');
+const modalTitleEl = projectModal?.querySelector('#modalTitle');
+const modalExternal = projectModal?.querySelector('.modal-external');
+
+function openProjectModal(trigger) {
+  if (!projectModal || !modalIframe) return;
+
+  const projectUrl = trigger.dataset.project || trigger.getAttribute('href');
+  const projectTitle = trigger.dataset.title || 'Projeto';
+
+  modalIframe.src = '';
+  modalIframe.classList.remove('is-loaded');
+  modalLoader?.classList.remove('is-hidden');
+  if (modalTitleEl) modalTitleEl.textContent = projectTitle;
+  if (modalExternal) modalExternal.href = projectUrl;
+
+  projectModal.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('modal-open');
+  document.body.style.overflow = 'hidden';
+
+  modalIframe.addEventListener('load', function onLoad() {
+    modalIframe.classList.add('is-loaded');
+    modalLoader?.classList.add('is-hidden');
+    modalIframe.removeEventListener('load', onLoad);
+  });
+
+  // Pequeno delay pra animação de entrada começar antes do conteúdo carregar
+  setTimeout(() => {
+    modalIframe.src = projectUrl;
+  }, 80);
+}
+
+function closeProjectModal() {
+  if (!projectModal) return;
+  projectModal.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('modal-open');
+  document.body.style.overflow = '';
+
+  // Limpa iframe depois da animação
+  setTimeout(() => {
+    if (modalIframe && !projectModal.classList.contains('is-open')) {
+      modalIframe.src = '';
+    }
+  }, 500);
+}
+
+document.querySelectorAll('[data-modal="modal"]').forEach((trigger) => {
+  trigger.addEventListener('click', (event) => {
+    event.preventDefault();
+    openProjectModal(trigger);
+  });
+});
+
+document.querySelectorAll('[data-close="modal"]').forEach((closeEl) => {
+  closeEl.addEventListener('click', closeProjectModal);
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && projectModal?.getAttribute('aria-hidden') === 'false') {
+    closeProjectModal();
+  }
+});
+
+/* ============================================================ */
+/* LOADING SCREEN — Matrix + Glitch                             */
+/* ============================================================ */
+
+const loadingScreen = document.getElementById('loadingScreen');
+const loadingCanvas = document.getElementById('loadingCanvas');
+
+function runLoadingSequence() {
+  if (!loadingScreen) return;
+
+  if (loadingCanvas && loadingCanvas.getContext) {
+    const ctx = loadingCanvas.getContext('2d');
+    let columns = [];
+    let drops = [];
+    const fontSize = 14;
+    const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789LUISGUSTAVO<>/{}[]';
+
+    function resizeCanvas() {
+      loadingCanvas.width = window.innerWidth;
+      loadingCanvas.height = window.innerHeight;
+      const columnCount = Math.floor(loadingCanvas.width / fontSize);
+      columns = new Array(columnCount).fill(0);
+      drops = new Array(columnCount).fill(1);
+    }
+
+    function drawMatrix() {
+      ctx.fillStyle = 'rgba(2, 2, 3, 0.06)';
+      ctx.fillRect(0, 0, loadingCanvas.width, loadingCanvas.height);
+      ctx.font = `${fontSize}px monospace`;
+
+      for (let i = 0; i < columns.length; i += 1) {
+        const char = chars.charAt(Math.floor(Math.random() * chars.length));
+        const x = i * fontSize;
+        const y = drops[i] * fontSize;
+
+        // Cor: branco no topo, vermelho neon no resto
+        if (drops[i] * fontSize < fontSize * 2) {
+          ctx.fillStyle = '#ff2a2a';
+          ctx.shadowColor = 'rgba(255, 42, 42, 0.9)';
+          ctx.shadowBlur = 12;
+        } else {
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.55)';
+          ctx.shadowBlur = 0;
+        }
+        ctx.fillText(char, x, y);
+
+        if (y > loadingCanvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i] += 1;
+      }
+    }
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    const matrixInterval = setInterval(drawMatrix, 45);
+
+    setTimeout(() => {
+      clearInterval(matrixInterval);
+      ctx.clearRect(0, 0, loadingCanvas.width, loadingCanvas.height);
+    }, 2400);
+  }
+
+  // Some com a tela de loading depois de 2.5s
+  setTimeout(() => {
+    loadingScreen.classList.add('is-hidden');
+    document.body.classList.add('is-loaded');
+  }, 2500);
+
+  setTimeout(() => {
+    loadingScreen.remove();
+  }, 3500);
+}
+
+// Roda o loading imediatamente
+runLoadingSequence();
+
+/* ============================================================ */
+/* GAME — Mata o bicho (removido)                               */
+/* ============================================================ */
