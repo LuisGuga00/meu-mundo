@@ -1403,25 +1403,19 @@ html {
 
 .photo-ring {
   position: absolute;
-  inset: 14%;
+  inset: 22%;
   border-radius: 50%;
   border: 3px solid #ff2a2a;
   box-shadow: 0 0 34px rgba(255, 0, 0, 0.5);
   overflow: hidden;
   background: #fff;
-  z-index: 2;
+  z-index: 4;
 }
 
 .photo-ring img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-/* Garante que a foto fique por cima dos anéis */
-.photo-ring {
-  position: relative;
-  z-index: 2;
 }
 
 /* ============================================================ */
@@ -1943,4 +1937,96 @@ html {
 @keyframes orbitPulse {
   0%, 100% { opacity: 0; transform: scale(0.95); }
   50% { opacity: 0.6; transform: scale(1.15); }
+}
+
+/* ============================================================ */
+/* NEURAL NETWORK — canvas com nós/sinapses ao redor da foto     */
+/* ============================================================ */
+
+.neural {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ============================================================ */
+/* BADGES — 4 cards orbitando no anel (por cima de tudo)         */
+/* ============================================================ */
+
+.badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 54px;
+  height: 54px;
+  margin: -27px 0 0 -27px;
+  border-radius: 50%;
+  background: rgba(8, 9, 13, 0.95);
+  border: 1px solid rgba(255, 42, 42, 0.45);
+  color: #fff;
+  font-family: "Courier New", ui-monospace, monospace;
+  font-size: 0.95rem;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  box-shadow:
+    0 0 18px rgba(255, 42, 42, 0.35),
+    inset 0 0 12px rgba(255, 42, 42, 0.15);
+  z-index: 5;
+  text-shadow: 0 0 8px rgba(255, 42, 42, 0.6);
+  pointer-events: none;
+}
+
+/* Distribuição 0° / 90° / 180° / 270° em torno do centro */
+.badge.b1 { transform: translate(0, -175px); }
+.badge.b2 { transform: translate(175px, 0); }
+.badge.b3 { transform: translate(0, 175px); }
+.badge.b4 { transform: translate(-175px, 0); }
+
+/* Variação de cor nos badges laterais pra dar vida */
+.badge.b2 {
+  border-color: rgba(168, 85, 247, 0.5);
+  box-shadow:
+    0 0 18px rgba(168, 85, 247, 0.35),
+    inset 0 0 12px rgba(168, 85, 247, 0.15);
+  text-shadow: 0 0 8px rgba(168, 85, 247, 0.6);
+  color: #fff;
+}
+.badge.b4 {
+  border-color: rgba(0, 217, 255, 0.5);
+  box-shadow:
+    0 0 18px rgba(0, 217, 255, 0.35),
+    inset 0 0 12px rgba(0, 217, 255, 0.15);
+  text-shadow: 0 0 8px rgba(0, 217, 255, 0.6);
+  color: #fff;
+}
+
+/* Pulse nas bordas dos badges */
+.badge::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  opacity: 0;
+  animation: badgePulse 3s ease-in-out infinite;
+}
+.badge.b1::after, .badge.b3::after { color: #ff2a2a; }
+.badge.b2::after { color: #a855f7; }
+.badge.b4::after { color: #00d9ff; }
+@keyframes badgePulse {
+  0%, 100% { opacity: 0; transform: scale(0.95); }
+  50%      { opacity: 0.5; transform: scale(1.18); }
+}
+
+/* Ajuste mobile — aproxima os badges do centro pra não vazar */
+@media (max-width: 520px) {
+  .badge { width: 44px; height: 44px; margin: -22px 0 0 -22px; font-size: 0.78rem; }
+  .badge.b1 { transform: translate(0, -130px); }
+  .badge.b2 { transform: translate(130px, 0); }
+  .badge.b3 { transform: translate(0, 130px); }
+  .badge.b4 { transform: translate(-130px, 0); }
 }
