@@ -38,6 +38,161 @@ const revealObserver = new IntersectionObserver(
 
 reveals.forEach((item) => revealObserver.observe(item));
 
+/* ============================================================ */
+/* NEURAL NETWORK — canvas com nós/sinapses ao redor da foto    */
+/* ============================================================ */
+(function spawnNeural() {
+  const canvas = document.getElementById('neural');
+  if (!canvas) return;
+
+  const wrap = canvas.parentElement;
+  const ctx = canvas.getContext('2d');
+
+  // Conta badges pra evitar desenhar nós em cima deles
+  const badges = wrap.querySelectorAll('.badge');
+
+  const NODE_COUNT = 26;
+  const MAX_DIST   = 95;
+  let w = 0, h = 0, cx = 0, cy = 0, r = 0;
+  let nodes = [];
+
+  function getBadgeCenters() {
+    // posição do wrap + offset do badge -> coordenadas absolutas do canvas
+    const wrapRect = wrap.getBoundingClientRect();
+    return Array.from(badges).map(b => {
+      const r = b.getBoundingClientRect();
+      return {
+        x: (r.left - wrapRect.left) + r.width / 2,
+        y: (r.top  - wrapRect.top)  + r.height / 2,
+        rad: r.width / 2 + 12 // folga ao redor do badge
+      };
+    });
+  }
+
+  function resize() {
+    const rect = wrap.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width  = rect.width  * dpr;
+    canvas.height = rect.height * dpr;
+    canvas.style.width  = rect.width  + 'px';
+    canvas.style.height = rect.height + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    w = rect.width; h = rect.height;
+    cx = w / 2; cy = h / 2;
+    // Raio do anel de nós — fica entre a foto e os badges
+    r = Math.min(w, h) * 0.40;
+    initNodes();
+  }
+
+  function initNodes() {
+    nodes = [];
+    for (let i = 0; i < NODE_COUNT; i++) {
+      const ang = Math.random() * Math.PI * 2;
+      const radius = r * (0.82 + Math.random() * 0.18);
+      nodes.push({
+        x: cx + Math.cos(ang) * radius,
+        y: cy + Math.sin(ang) * radius,
+        vx: (Math.random() - 0.5) * 0.18,
+        vy: (Math.random() - 0.5) * 0.18,
+        r: 2 + Math.random() * 2,
+        pulse: Math.random() * Math.PI * 2,
+      });
+    }
+  }
+
+  function distToBadges(x, y, centers) {
+    let minD = Infinity;
+    for (const b of centers) {
+      const dx = x - b.x, dy = y - b.y;
+      const d = Math.sqrt(dx * dx + dy * dy) - b.rad;
+      if (d < minD) minD = d;
+    }
+    return minD;
+  }
+
+  function step() {
+    ctx.clearRect(0, 0, w, h);
+    const centers = getBadgeCenters();
+
+    // mover nós
+    for (const n of nodes) {
+      n.x += n.vx;
+      n.y += n.vy;
+      n.pulse += 0.04;
+
+      // mantém numa coroa ao redor da foto
+      const dx = n.x - cx, dy = n.y - cy;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const target = r * (0.82 + 0.18 * Math.sin(n.pulse * 0.5));
+      const diff = dist - target;
+      n.vx -= (dx / (dist || 1)) * diff * 0.002;
+      n.vy -= (dy / (dist || 1)) * diff * 0.002;
+
+      // afasta de badges
+      const db = distToBadges(n.x, n.y, centers);
+      if (db < 0) {
+        // empurra radial pra longe do badge mais próximo
+        let nearest = centers[0];
+        let bestD = Infinity;
+        for (const b of centers) {
+          const ddx = n.x - b.x, ddy = n.y - b.y;
+          const dd = Math.sqrt(ddx * ddx + ddy * ddy);
+          if (dd < bestD) { bestD = dd; nearest = b; }
+        }
+        const ax = (n.x - nearest.x) / (bestD || 1);
+        const ay = (n.y - nearest.y) / (bestD || 1);
+        n.vx += ax * 0.4;
+        n.vy += ay * 0.4;
+      }
+
+      n.vx *= 0.985;
+      n.vy *= 0.985;
+    }
+
+    // linhas
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const a = nodes[i], b = nodes[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const d = Math.sqrt(dx * dx + dy * dy);
+        if (d < MAX_DIST) {
+          const alpha = (1 - d / MAX_DIST) * 0.55;
+          ctx.strokeStyle = `rgba(255, 42, 42, ${alpha})`;
+          ctx.lineWidth = 1;
+          ctx.shadowColor = 'rgba(255, 42, 42, 0.8)';
+          ctx.shadowBlur = 6;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+    }
+    ctx.shadowBlur = 0;
+
+    // nós
+    for (const n of nodes) {
+      // pula se cair em cima de badge
+      const db = distToBadges(n.x, n.y, centers);
+      if (db < 0) continue;
+      const pulseR = n.r + Math.sin(n.pulse) * 1.2;
+      ctx.fillStyle = '#ff5555';
+      ctx.shadowColor = 'rgba(255, 42, 42, 1)';
+      ctx.shadowBlur = 12;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, pulseR, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.shadowBlur = 0;
+
+    requestAnimationFrame(step);
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+  requestAnimationFrame(step);
+})();
+
 const contactForm = document.querySelector('.contact-form');
 
 if (contactForm) {
