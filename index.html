@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-lang="pt">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,11 +18,20 @@
   <div class="page-bg" aria-hidden="true"></div>
 
   <header class="topbar">
+    <div class="lang-toggle" role="group" aria-label="Idioma / Language">
+      <button type="button" data-lang="pt" class="active" aria-label="Português">
+        <span class="flag" aria-hidden="true">🇧🇷</span><span>PT</span>
+      </button>
+      <button type="button" data-lang="en" aria-label="English">
+        <span class="flag" aria-hidden="true">🇺🇸</span><span>EN</span>
+      </button>
+    </div>
+
     <nav class="menu" aria-label="Navegação principal">
-      <a href="#home" class="menu-link active">Início</a>
-      <a href="#about" class="menu-link">Sobre</a>
-      <a href="#projects" class="menu-link">Projetos</a>
-      <a href="#contact" class="menu-link">Contato</a>
+      <a href="#home" class="menu-link active" data-i18n="nav.home">Início</a>
+      <a href="#about" class="menu-link" data-i18n="nav.about">Sobre</a>
+      <a href="#projects" class="menu-link" data-i18n="nav.projects">Projetos</a>
+      <a href="#contact" class="menu-link" data-i18n="nav.contact">Contato</a>
     </nav>
 
     <div class="top-icons" aria-label="Links rápidos">
@@ -44,36 +53,36 @@
   <main>
     <section id="home" class="section hero">
       <div class="hero-text reveal">
-        <h1>Oi, eu sou <span>Luis Gustavo</span></h1>
-        <h2>Desenvolvedor e analista de sistemas</h2>
+        <h1 data-i18n="hero.greeting">Oi, eu sou <span>Luis Gustavo</span></h1>
+        <h2 data-i18n="hero.role">Desenvolvedor e analista de sistemas</h2>
         <div class="hero-highlights hover-tilt" aria-label="Resumo profissional de Luis Gustavo">
           <table class="hero-table">
             <thead>
               <tr>
-                <th>Categoria</th>
-                <th>Sobre mim</th>
+                <th data-i18n="hero.th.category">Categoria</th>
+                <th data-i18n="hero.th.about">Sobre mim</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>Formação</td>
-                <td>Ensino médio completo - Zeta Objetivo em Birigui<br />Curso de assistente de Logística completo - Portal IDEA</td>
+                <td data-i18n="hero.edu.label">Formação</td>
+                <td data-i18n-html="hero.edu.value">Ensino médio completo - Zeta Objetivo em Birigui<br />Curso de assistente de Logística completo - Portal IDEA</td>
               </tr>
               <tr>
-                <td>Tecnologias</td>
-                <td>HTML, CSS, JavaScript e criação de interfaces web funcionais.</td>
+                <td data-i18n="hero.tech.label">Tecnologias</td>
+                <td data-i18n="hero.tech.value">HTML, CSS, JavaScript e criação de interfaces web funcionais.</td>
               </tr>
               <tr>
-                <td>Diferencial</td>
-                <td>Experiência administrativa, organização e atenção aos detalhes em cada projeto.</td>
+                <td data-i18n="hero.diff.label">Diferencial</td>
+                <td data-i18n="hero.diff.value">Experiência administrativa, organização e atenção aos detalhes em cada projeto.</td>
               </tr>
             </tbody>
           </table>
         </div>
 
         <div class="hero-buttons">
-          <a href="#projects" class="btn btn-primary">Ver Projetos</a>
-          <a href="#contact" class="btn btn-secondary">Contato</a>
+          <a href="#projects" class="btn btn-primary" data-i18n="hero.cta.projects">Ver Projetos</a>
+          <a href="#contact" class="btn btn-secondary" data-i18n="hero.cta.contact">Contato</a>
         </div>
       </div>
 
@@ -94,13 +103,13 @@
     <section id="about" class="section about">
       <div class="about-heading">
         
-        <h3 class="section-title reveal">Sobre mim</h3>
+        <h3 class="section-title reveal" data-i18n="about.title">Sobre mim</h3>
       </div>
 
       <div class="about-grid">
         <article class="about-card reveal reveal-left hover-tilt">
-          <h4>Resumo</h4>
-          <p>
+          <h4 data-i18n="about.summary.title">Resumo</h4>
+          <p data-i18n="about.summary.text">
             Sou estudante de Análise e Desenvolvimento de Sistemas no Unisalesiano
              e possuo experiência na área administrativa. Atualmente, estou evoluindo
              na área de desenvolvimento com foco na criação de soluções web modernas e funcionais.
@@ -108,25 +117,25 @@
         </article>
 
         <article class="about-card reveal reveal-pop delay-1 hover-tilt">
-          <h4>Objetivos</h4>
-          <p>
-           Projeto desenvolvido com o objetivo de implementar um catálogo e sistema de navegação de 
+          <h4 data-i18n="about.goals.title">Objetivos</h4>
+          <p data-i18n="about.goals.text1">
+           Projeto desenvolvido com o objetivo de implementar um catálogo e sistema de navegação de
            produtos, buscando explorar a construção da interface utilizando exclusivamente HTML, sem a aplicação de CSS.
           </p>
-          <p>
+          <p data-i18n="about.goals.text2">
             Quero continuar estudando JavaScript e frameworks modernos para evoluir
             cada vez mais como profissional.
           </p>
         </article>
 
         <article class="about-card reveal reveal-right delay-2 hover-tilt">
-          <h4>Onde Trabalhei</h4>
+          <h4 data-i18n="about.work.title">Onde Trabalhei</h4>
           <ul class="work-list">
-            <li>Anhembi Morumbi - Encarregado Administrativo</li>
-            <li>Alta Noroeste Araçatuba - Assistente Administrativo</li>
-            <li>Conserta Bike Araçatuba - Encarregado Administrativo e Mecânico</li>
-            <li>Mundo Móveis - Auxiliar de Produção</li>
-            <li>Bento's Butiquim - Auxiliar Geral</li>
+            <li data-i18n="about.work.1">Anhembi Morumbi - Encarregado Administrativo</li>
+            <li data-i18n="about.work.2">Alta Noroeste Araçatuba - Assistente Administrativo</li>
+            <li data-i18n="about.work.3">Conserta Bike Araçatuba - Encarregado Administrativo e Mecânico</li>
+            <li data-i18n="about.work.4">Mundo Móveis - Auxiliar de Produção</li>
+            <li data-i18n="about.work.5">Bento's Butiquim - Auxiliar Geral</li>
           </ul>
         </article>
       </div>
@@ -135,26 +144,26 @@
         <table class="skills-table" aria-label="Habilidades técnicas">
           <thead>
             <tr>
-              <th>Categoria</th>
-              <th>Habilidades e Tecnologias</th>
+              <th data-i18n="skills.th.category">Categoria</th>
+              <th data-i18n="skills.th.skills">Habilidades e Tecnologias</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Desenvolvimento Web</td>
-              <td>HTML, CSS, JavaScript, Desenvolvimento Web (Front-end)</td>
+              <td data-i18n="skills.web.label">Desenvolvimento Web</td>
+              <td data-i18n="skills.web.value">HTML, CSS, JavaScript, Desenvolvimento Web (Front-end)</td>
             </tr>
             <tr>
-              <td>Linguagens</td>
-              <td>C++, Java (Básico/Intermediário), Conceitos de .NET</td>
+              <td data-i18n="skills.langs.label">Linguagens</td>
+              <td data-i18n="skills.langs.value">C++, Java (Básico/Intermediário), Conceitos de .NET</td>
             </tr>
             <tr>
-              <td>Banco de Dados</td>
-              <td>SQL Server (Básico/Intermediário), Modelagem e Administração de Banco de Dados</td>
+              <td data-i18n="skills.db.label">Banco de Dados</td>
+              <td data-i18n="skills.db.value">SQL Server (Básico/Intermediário), Modelagem e Administração de Banco de Dados</td>
             </tr>
             <tr>
-              <td>Metodologias</td>
-              <td>Conceitos de Projeto e Testes de Software, Suporte e Manutenção de Sistemas</td>
+              <td data-i18n="skills.meth.label">Metodologias</td>
+              <td data-i18n="skills.meth.value">Conceitos de Projeto e Testes de Software, Suporte e Manutenção de Sistemas</td>
             </tr>
           </tbody>
         </table>
@@ -164,16 +173,16 @@
     </section>
 
     <section id="projects" class="section projects">
-      <h3 class="section-title reveal">Projetos</h3>
+      <h3 class="section-title reveal" data-i18n="projects.title">Projetos</h3>
 
       <div class="project-grid">
         <article class="project-card reveal reveal-left hover-tilt">
           <img src="imagem/projeto 1 .png" alt="Preview do projeto Loja Virtual" />
           <div class="project-content">
-            <h4>Loja Virtual</h4>
+            <h4 data-i18n="projects.p1">Loja Virtual</h4>
 
             <div class="project-actions">
-              <a href="trabalho/PRINCIPAL.html" data-modal="modal" data-title="Loja Virtual" data-project="trabalho/PRINCIPAL.html">Live Demo</a>
+              <a href="trabalho/PRINCIPAL.html" data-modal="modal" data-title="Loja Virtual" data-project="trabalho/PRINCIPAL.html" data-i18n="projects.demo">Live Demo</a>
             </div>
           </div>
         </article>
@@ -181,10 +190,10 @@
         <article class="project-card reveal reveal-pop delay-1 hover-tilt">
           <img src="imagem/projeto 2.png" alt="Preview do projeto Site Games" />
           <div class="project-content">
-            <h4>Site Games</h4>
+            <h4 data-i18n="projects.p2">Site Games</h4>
 
             <div class="project-actions">
-              <a href="site/index.html" data-modal="modal" data-title="Site Games" data-project="site/index.html">Live Demo</a>
+              <a href="site/index.html" data-modal="modal" data-title="Site Games" data-project="site/index.html" data-i18n="projects.demo">Live Demo</a>
             </div>
           </div>
         </article>
@@ -192,10 +201,10 @@
         <article class="project-card reveal reveal-right delay-2 hover-tilt">
           <img src="imagem/projeto 3.png" alt="Preview do Projeto Web" />
           <div class="project-content">
-            <h4>Projeto Web</h4>
+            <h4 data-i18n="projects.p3">Projeto Web</h4>
 
             <div class="project-actions">
-              <a href="projeto/index.html" data-modal="modal" data-title="Projeto Web" data-project="projeto/index.html">Live Demo</a>
+              <a href="projeto/index.html" data-modal="modal" data-title="Projeto Web" data-project="projeto/index.html" data-i18n="projects.demo">Live Demo</a>
             </div>
           </div>
         </article>
@@ -203,10 +212,10 @@
         <article class="project-card reveal reveal-left hover-tilt">
           <img src="imagem/teste 1 .png" alt="Preview do projeto Teste" />
           <div class="project-content">
-            <h4>Visual</h4>
+            <h4 data-i18n="projects.p4">Visual</h4>
 
             <div class="project-actions">
-              <a href="https://luisguga00.github.io/parte-1/" data-modal="modal" data-title="Visual — Parte 1" data-project="https://luisguga00.github.io/parte-1/">Live Demo</a>
+              <a href="https://luisguga00.github.io/parte-1/" data-modal="modal" data-title="Visual — Parte 1" data-project="https://luisguga00.github.io/parte-1/" data-i18n="projects.demo">Live Demo</a>
             </div>
           </div>
         </article>
@@ -214,10 +223,10 @@
         <article class="project-card reveal reveal-pop delay-1 hover-tilt">
           <img src="imagem/teste 2.png" alt="Preview do projeto Teste 2" />
           <div class="project-content">
-            <h4>Visual</h4>
+            <h4 data-i18n="projects.p5">Visual</h4>
 
             <div class="project-actions">
-              <a href="https://luisguga00.github.io/parte-2/" data-modal="modal" data-title="Visual — Parte 2" data-project="https://luisguga00.github.io/parte-2/">Live Demo</a>
+              <a href="https://luisguga00.github.io/parte-2/" data-modal="modal" data-title="Visual — Parte 2" data-project="https://luisguga00.github.io/parte-2/" data-i18n="projects.demo">Live Demo</a>
             </div>
           </div>
         </article>
@@ -225,15 +234,15 @@
     </section>
 
     <section id="contact" class="section contact">
-      <h3 class="section-title reveal">Contato</h3>
+      <h3 class="section-title reveal" data-i18n="contact.title">Contato</h3>
 
       <div class="contact-grid">
         <div class="contact-info reveal reveal-left">
-          <p>Vamos colaborar? Estou aberto a novos projetos e oportunidades.</p>
+          <p data-i18n="contact.lead">Vamos colaborar? Estou aberto a novos projetos e oportunidades.</p>
           <ul>
             <li>Luisgubrandao@gmail.com</li>
             <li>+55 (18) 99758-8429</li>
-            <li>Araçatuba - SP</li>
+            <li data-i18n="contact.location">Araçatuba - SP</li>
           </ul>
           <div class="contact-socials">
             <a class="icon-link" href="https://github.com/LuisGuga00" target="_blank" rel="noreferrer" title="GitHub" aria-label="GitHub">
@@ -270,10 +279,10 @@
           <input type="hidden" name="_template" value="table" />
           <input type="hidden" name="_captcha" value="true" />
           <input type="text" name="_honey" class="form-honeypot" tabindex="-1" autocomplete="off" />
-          <input type="text" name="nome" placeholder="Seu nome" required />
-          <input type="email" name="email" placeholder="Seu e-mail" required />
-          <textarea name="mensagem" rows="4" placeholder="Sua mensagem" required></textarea>
-          <button type="submit" class="btn btn-primary">Enviar mensagem</button>
+          <input type="text" name="nome" data-i18n-placeholder="contact.form.name" placeholder="Seu nome" required />
+          <input type="email" name="email" data-i18n-placeholder="contact.form.email" placeholder="Seu e-mail" required />
+          <textarea name="mensagem" rows="4" data-i18n-placeholder="contact.form.msg" placeholder="Sua mensagem" required></textarea>
+          <button type="submit" class="btn btn-primary" data-i18n="contact.form.submit">Enviar mensagem</button>
           <p class="form-status" aria-live="polite"></p>
         </form>
       </div>
@@ -283,11 +292,8 @@
   </main>
 
   <footer>
-    <p>&copy; <span id="current-year"></span> Luis Gustavo. Todos os direitos reservados.</p>
+    <p>&copy; <span id="current-year"></span> <span data-i18n="footer.name">Luis Gustavo</span>. <span data-i18n="footer.rights">Todos os direitos reservados</span>.</p>
   </footer>
-
-  <div class="cursor" aria-hidden="true"></div>
-  <div class="cursor-dot" aria-hidden="true"></div>
 
   <!-- Modal dos Projetos -->
   <div class="project-modal" id="projectModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
