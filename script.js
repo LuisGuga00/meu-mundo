@@ -397,53 +397,6 @@ hoverTiltElements.forEach((element) => {
 /* NEON GAMER ANIMATIONS                                        */
 /* ============================================================ */
 
-// Cursor customizado neon
-const cursor = document.querySelector('.cursor');
-const cursorDot = document.querySelector('.cursor-dot');
-const isCoarsePointer = window.matchMedia('(hover: none)').matches;
-
-if (cursor && cursorDot && !isCoarsePointer) {
-  let mouseX = window.innerWidth / 2;
-  let mouseY = window.innerHeight / 2;
-  let cursorX = mouseX;
-  let cursorY = mouseY;
-
-  document.addEventListener('mousemove', (event) => {
-    mouseX = event.clientX;
-    mouseY = event.clientY;
-
-    cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
-  });
-
-  function animateCursor() {
-    cursorX += (mouseX - cursorX) * 0.18;
-    cursorY += (mouseY - cursorY) * 0.18;
-
-    cursor.style.transform = `translate(${cursorX}px, ${cursorY}px) translate(-50%, -50%)`;
-    requestAnimationFrame(animateCursor);
-  }
-  animateCursor();
-
-  // Detecta elementos interativos para "engordar" o cursor
-  const interactiveElements = document.querySelectorAll('a, button, .icon-link, .btn, .menu-link, .project-card, .about-card, input, textarea');
-
-  interactiveElements.forEach((el) => {
-    el.addEventListener('mouseenter', () => cursor.classList.add('is-hover'));
-    el.addEventListener('mouseleave', () => cursor.classList.remove('is-hover'));
-  });
-
-  // Esconde o cursor quando sai da janela
-  document.addEventListener('mouseleave', () => {
-    cursor.style.opacity = '0';
-    cursorDot.style.opacity = '0';
-  });
-
-  document.addEventListener('mouseenter', () => {
-    cursor.style.opacity = '1';
-    cursorDot.style.opacity = '1';
-  });
-}
-
 // Adiciona classe "is-loaded" no body após carregamento
 window.addEventListener('load', () => {
   document.body.classList.add('is-loaded');
@@ -598,3 +551,183 @@ runLoadingSequence();
 /* ============================================================ */
 /* GAME — Mata o bicho (removido)                               */
 /* ============================================================ */
+
+// === Internationalization (PT / EN) ===
+const translations = {
+  pt: {
+    'nav.home': 'Início',
+    'nav.about': 'Sobre',
+    'nav.projects': 'Projetos',
+    'nav.contact': 'Contato',
+    'hero.greeting': 'Oi, eu sou <span>Luis Gustavo</span>',
+    'hero.role': 'Desenvolvedor e analista de sistemas',
+    'hero.th.category': 'Categoria',
+    'hero.th.about': 'Sobre mim',
+    'hero.edu.label': 'Formação',
+    'hero.edu.value': 'Ensino médio completo - Zeta Objetivo em Birigui<br />Curso de assistente de Logística completo - Portal IDEA',
+    'hero.tech.label': 'Tecnologias',
+    'hero.tech.value': 'HTML, CSS, JavaScript e criação de interfaces web funcionais.',
+    'hero.diff.label': 'Diferencial',
+    'hero.diff.value': 'Experiência administrativa, organização e atenção aos detalhes em cada projeto.',
+    'hero.cta.projects': 'Ver Projetos',
+    'hero.cta.contact': 'Contato',
+    'about.title': 'Sobre mim',
+    'about.summary.title': 'Resumo',
+    'about.summary.text': 'Sou estudante de Análise e Desenvolvimento de Sistemas no Unisalesiano e possuo experiência na área administrativa. Atualmente, estou evoluindo na área de desenvolvimento com foco na criação de soluções web modernas e funcionais.',
+    'about.goals.title': 'Objetivos',
+    'about.goals.text1': 'Projeto desenvolvido com o objetivo de implementar um catálogo e sistema de navegação de produtos, buscando explorar a construção da interface utilizando exclusivamente HTML, sem a aplicação de CSS.',
+    'about.goals.text2': 'Quero continuar estudando JavaScript e frameworks modernos para evoluir cada vez mais como profissional.',
+    'about.work.title': 'Onde Trabalhei',
+    'about.work.1': 'Anhembi Morumbi - Encarregado Administrativo',
+    'about.work.2': 'Alta Noroeste Araçatuba - Assistente Administrativo',
+    'about.work.3': 'Conserta Bike Araçatuba - Encarregado Administrativo e Mecânico',
+    'about.work.4': 'Mundo Móveis - Auxiliar de Produção',
+    'about.work.5': "Bento's Butiquim - Auxiliar Geral",
+    'skills.th.category': 'Categoria',
+    'skills.th.skills': 'Habilidades e Tecnologias',
+    'skills.web.label': 'Desenvolvimento Web',
+    'skills.web.value': 'HTML, CSS, JavaScript, Desenvolvimento Web (Front-end)',
+    'skills.langs.label': 'Linguagens',
+    'skills.langs.value': 'C++, Java (Básico/Intermediário), Conceitos de .NET',
+    'skills.db.label': 'Banco de Dados',
+    'skills.db.value': 'SQL Server (Básico/Intermediário), Modelagem e Administração de Banco de Dados',
+    'skills.meth.label': 'Metodologias',
+    'skills.meth.value': 'Conceitos de Projeto e Testes de Software, Suporte e Manutenção de Sistemas',
+    'projects.title': 'Projetos',
+    'projects.p1': 'Loja Virtual',
+    'projects.p2': 'Site Games',
+    'projects.p3': 'Projeto Web',
+    'projects.p4': 'Visual',
+    'projects.p5': 'Visual',
+    'projects.demo': 'Live Demo',
+    'contact.title': 'Contato',
+    'contact.lead': 'Vamos colaborar? Estou aberto a novos projetos e oportunidades.',
+    'contact.location': 'Araçatuba - SP',
+    'contact.form.name': 'Seu nome',
+    'contact.form.email': 'Seu e-mail',
+    'contact.form.msg': 'Sua mensagem',
+    'contact.form.submit': 'Enviar mensagem',
+    'footer.name': 'Luis Gustavo',
+    'footer.rights': 'Todos os direitos reservados',
+  },
+  en: {
+    'nav.home': 'Home',
+    'nav.about': 'About',
+    'nav.projects': 'Projects',
+    'nav.contact': 'Contact',
+    'hero.greeting': "Hi, I'm <span>Luis Gustavo</span>",
+    'hero.role': 'Developer and systems analyst',
+    'hero.th.category': 'Category',
+    'hero.th.about': 'About me',
+    'hero.edu.label': 'Education',
+    'hero.edu.value': 'High school diploma - Zeta Objetivo in Birigui<br />Logistics assistant course - Portal IDEA',
+    'hero.tech.label': 'Technologies',
+    'hero.tech.value': 'HTML, CSS, JavaScript and building functional web interfaces.',
+    'hero.diff.label': 'Strengths',
+    'hero.diff.value': 'Administrative background, organization and attention to detail in every project.',
+    'hero.cta.projects': 'View Projects',
+    'hero.cta.contact': 'Contact',
+    'about.title': 'About me',
+    'about.summary.title': 'Summary',
+    'about.summary.text': "I'm a Systems Analysis and Development student at Unisalesiano with experience in administration. I'm currently growing in the development area, focused on building modern and functional web solutions.",
+    'about.goals.title': 'Goals',
+    'about.goals.text1': 'Project developed with the goal of implementing a catalog and product navigation system, exploring the construction of the interface using only HTML, without applying CSS.',
+    'about.goals.text2': 'I want to keep studying JavaScript and modern frameworks to grow more and more as a professional.',
+    'about.work.title': 'Where I worked',
+    'about.work.1': 'Anhembi Morumbi - Administrative Supervisor',
+    'about.work.2': 'Alta Noroeste Araçatuba - Administrative Assistant',
+    'about.work.3': 'Conserta Bike Araçatuba - Administrative Supervisor and Mechanic',
+    'about.work.4': 'Mundo Móveis - Production Assistant',
+    'about.work.5': "Bento's Butiquim - General Assistant",
+    'skills.th.category': 'Category',
+    'skills.th.skills': 'Skills and Technologies',
+    'skills.web.label': 'Web Development',
+    'skills.web.value': 'HTML, CSS, JavaScript, Web Development (Front-end)',
+    'skills.langs.label': 'Languages',
+    'skills.langs.value': 'C++, Java (Basic/Intermediate), .NET concepts',
+    'skills.db.label': 'Database',
+    'skills.db.value': 'SQL Server (Basic/Intermediate), Database modeling and administration',
+    'skills.meth.label': 'Methodologies',
+    'skills.meth.value': 'Software project and testing concepts, system support and maintenance',
+    'projects.title': 'Projects',
+    'projects.p1': 'Online Store',
+    'projects.p2': 'Games Website',
+    'projects.p3': 'Web Project',
+    'projects.p4': 'Visual',
+    'projects.p5': 'Visual',
+    'projects.demo': 'Live Demo',
+    'contact.title': 'Contact',
+    'contact.lead': "Let's collaborate? I'm open to new projects and opportunities.",
+    'contact.location': 'Araçatuba - SP',
+    'contact.form.name': 'Your name',
+    'contact.form.email': 'Your e-mail',
+    'contact.form.msg': 'Your message',
+    'contact.form.submit': 'Send message',
+    'footer.name': 'Luis Gustavo',
+    'footer.rights': 'All rights reserved',
+  },
+};
+
+const LANG_KEY = 'portfolio-lang';
+const html = document.documentElement;
+const langButtons = document.querySelectorAll('.lang-toggle button');
+
+function applyLanguage(lang) {
+  const dict = translations[lang] || translations.pt;
+
+  document.querySelectorAll('[data-i18n]').forEach((el) => {
+    const key = el.getAttribute('data-i18n');
+    const value = dict[key];
+    if (value === undefined) return;
+    el.innerHTML = value;
+  });
+
+  document.querySelectorAll('[data-i18n-html]').forEach((el) => {
+    const key = el.getAttribute('data-i18n-html');
+    const value = dict[key];
+    if (value === undefined) return;
+    el.innerHTML = value;
+  });
+
+  document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    const value = dict[key];
+    if (value === undefined) return;
+    el.setAttribute('placeholder', value);
+  });
+
+  html.setAttribute('lang', lang === 'en' ? 'en' : 'pt-BR');
+  html.setAttribute('data-lang', lang);
+
+  langButtons.forEach((btn) => {
+    btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+  });
+
+  try {
+    localStorage.setItem(LANG_KEY, lang);
+  } catch (_) {
+    /* localStorage indisponível, sem problema */
+  }
+}
+
+langButtons.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const lang = btn.getAttribute('data-lang');
+    if (lang) applyLanguage(lang);
+  });
+});
+
+// Carrega idioma salvo ou detecta pelo navegador
+let savedLang = null;
+try {
+  savedLang = localStorage.getItem(LANG_KEY);
+} catch (_) {
+  /* ignore */
+}
+
+if (savedLang === 'en' || savedLang === 'pt') {
+  applyLanguage(savedLang);
+} else {
+  const browserLang = (navigator.language || 'pt-BR').toLowerCase();
+  applyLanguage(browserLang.startsWith('pt') ? 'pt' : 'en');
+}
